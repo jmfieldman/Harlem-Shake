@@ -23,7 +23,8 @@
 	UIButton *_befRecord;
 	UIButton *_aftRecord;
 	
-	
+	UIButton *_befClip;
+	UIButton *_aftClip;
 }
 
 @property (nonatomic, strong) VideoID_t videoId;

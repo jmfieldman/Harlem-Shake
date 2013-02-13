@@ -127,5 +127,63 @@ SINGLETON_IMPL(VideoModel);
 	[[PersistentDictionary dictionaryWithName:@"videoOrder"] saveToFile];
 }
 
+
+- (NSString*) pathToClipForVideo:(VideoID_t)videoId beforeDrop:(BOOL)before {
+	return [NSString stringWithFormat:@"%@/%@.mov", [self dataDirectoryForVideo:videoId], before ? @"before" : @"after"];
+}
+
+- (NSString*) pathToFullVideo:(VideoID_t)videoId {
+	return [NSString stringWithFormat:@"%@/full.mp4", [self dataDirectoryForVideo:videoId]];
+}
+
+- (NSString*) pathToFullVideoTemp:(VideoID_t)videoId {
+	return [NSString stringWithFormat:@"%@/full_temp.mp4", [self dataDirectoryForVideo:videoId]];
+}
+
+- (UIImage*) screenshotForVideo:(VideoID_t)videoId beforeDrop:(BOOL)before {
+	/* Make sure we have the actual clip.. */
+	NSString *moviePath = [self pathToClipForVideo:videoId beforeDrop:before];
+	if (![[NSFileManager defaultManager] fileExistsAtPath:moviePath]) {
+		return nil;
+	}
+	
+	NSString *path = [NSString stringWithFormat:@"%@/%@.png", [self dataDirectoryForVideo:videoId], before ? @"before" : @"after"];
+	
+	/* Return the image if it exists */
+	UIImage *img = [[UIImage alloc] initWithContentsOfFile:path];
+	if (img) return img;
+	
+	/* Otherwise we need to make it */
+	[[NSFileManager defaultManager] removeItemAtPath:path error:nil]; /* Could be corrupt? */
+	
+	AVAsset *asset = [AVAsset assetWithURL:[NSURL fileURLWithPath:moviePath]];
+    AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+    CMTime time = CMTimeMake(1, 1);
+    CGImageRef imageRef = [imageGenerator copyCGImageAtTime:time actualTime:NULL error:NULL];
+    UIImage *thumbnail = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);  // CGImageRef won't be released by ARC
+	
+	/* Write to disk */
+	[UIImagePNGRepresentation(thumbnail) writeToFile:path atomically:YES];
+	
+	return thumbnail;
+}
+
+
+- (void) deleteScreenshotForVideo:(VideoID_t)videoId beforeDrop:(BOOL)before {
+	NSString *path = [NSString stringWithFormat:@"%@/%@.png", [self dataDirectoryForVideo:videoId], before ? @"before" : @"after"];
+	[[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+}
+
+
+- (BOOL) clipExistsforVideo:(VideoID_t)videoId beforeDrop:(BOOL)before {
+	return [[NSFileManager defaultManager] fileExistsAtPath:[self pathToClipForVideo:videoId beforeDrop:before]];
+}
+
+- (BOOL) fullVideoExistsForVideo:(VideoID_t)videoId {
+	return [[NSFileManager defaultManager] fileExistsAtPath:[self pathToFullVideo:videoId]];
+}
+
+
 @end
 

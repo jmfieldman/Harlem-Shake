@@ -16,6 +16,9 @@
 #define kCellTag_Title            1
 #define kCellTag_Description      2
 #define kCellTag_RecordingOptions 3
+#define kCellTag_EncodeVideo      4
+#define kCellTag_Watch            5
+#define kCellTag_Share            6
 
 
 @implementation VideoInfoViewController
@@ -57,6 +60,8 @@
 	
 	_tableCells = [NSMutableArray array];
 	
+	/* Basic settings */
+	
 	{
 		NSMutableArray *currentSection = [NSMutableArray array];
 		
@@ -94,6 +99,8 @@
 		[_tableCells addObject:currentSection];
 	}
 	
+	/* Clip info */
+	
 	{
 		NSMutableArray *currentSection = [NSMutableArray array];
 		
@@ -105,6 +112,62 @@
 			[currentSection addObject:cell];
 		}
 				
+		[_tableCells addObject:currentSection];
+	}
+	
+	/* Dealing with the final video */
+	
+	{
+		NSMutableArray *currentSection = [NSMutableArray array];
+	
+		if ([[VideoModel sharedInstance] fullVideoExistsForVideo:_videoId]) {
+			
+			/* This is what happens if the full video is already encoded! */
+			
+			{
+				UITableViewCellEx *cell = [[UITableViewCellEx alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
+				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+				cell.textLabel.text = @"Watch Full Version";
+				cell.tag = kCellTag_Watch;
+				cell.shouldHighlight = YES;
+				[currentSection addObject:cell];
+			}
+
+			{
+				UITableViewCellEx *cell = [[UITableViewCellEx alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
+				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+				cell.textLabel.text = @"Share!";
+				cell.tag = kCellTag_Share;
+				cell.shouldHighlight = YES;
+				[currentSection addObject:cell];
+			}
+
+			
+		} else {
+			
+			/* Video is not encoded. Can we encode yet? */
+			
+			if ([[VideoModel sharedInstance] clipExistsforVideo:_videoId beforeDrop:YES] && [[VideoModel sharedInstance] clipExistsforVideo:_videoId beforeDrop:NO]) {
+				
+				/* Both clips exist, so we can encode it */
+				UITableViewCellEx *cell = [[UITableViewCellEx alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
+				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+				cell.textLabel.text = @"Encode Video!";
+				cell.tag = kCellTag_EncodeVideo;
+				cell.shouldHighlight = YES;
+				[currentSection addObject:cell];
+				
+			} else {
+				
+				/* Nope, a clip is missing */
+				UITableViewCellEx *cell = [[UITableViewCellEx alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
+				cell.sectionFooterText = @"Cannot encode the video until both \"Before Drop\" and \"After Drop\" clips have been recorded.";
+				[currentSection addObject:cell];
+				
+			}
+			
+		}
+		
 		[_tableCells addObject:currentSection];
 	}
 	

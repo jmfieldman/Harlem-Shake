@@ -8,6 +8,7 @@
 
 #import "ClipControlTableViewCell.h"
 
+#define kClipSize 80
 
 #define HEADING_FONT [UIFont boldSystemFontOfSize:12]
 
@@ -16,7 +17,7 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
 	
-		self.cellHeight = 160;
+		self.cellHeight = 175;
 		
 		/* Titles */
 		_befTitle = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -32,6 +33,15 @@
 		_aftTitle.font = HEADING_FONT;
 		_aftTitle.textAlignment = NSTextAlignmentCenter;
 		[self.contentView addSubview:_aftTitle];
+		
+		/* Clip buttons */
+		_befClip = [UIButton buttonWithType:UIButtonTypeCustom];
+		[_befClip setImage:[UIImage imageNamed:@"noclip"] forState:UIControlStateNormal];
+		[self.contentView addSubview:_befClip];
+		
+		_aftClip = [UIButton buttonWithType:UIButtonTypeCustom];
+		[_aftClip setImage:[UIImage imageNamed:@"noclip"] forState:UIControlStateNormal];
+		[self.contentView addSubview:_aftClip];
 		
 		/* Record buttons */
 		_befRecord = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -57,6 +67,26 @@
 
 - (void) setVideoId:(VideoID_t)videoId {
 	_videoId = videoId;
+	
+	
+	UIImage *befShot = [[VideoModel sharedInstance] screenshotForVideo:videoId beforeDrop:YES];
+	UIImage *aftShot = [[VideoModel sharedInstance] screenshotForVideo:videoId beforeDrop:YES];
+	
+	if (befShot) {
+		[_befClip setImage:befShot forState:UIControlStateNormal];
+		_befClip.enabled = YES;
+	} else {
+		[_befClip setImage:[UIImage imageNamed:@"noclip"] forState:UIControlStateNormal];
+		_befClip.enabled = NO;
+	}	
+
+	if (aftShot) {
+		[_aftClip setImage:befShot forState:UIControlStateNormal];
+		_aftClip.enabled = YES;
+	} else {
+		[_aftClip setImage:[UIImage imageNamed:@"noclip"] forState:UIControlStateNormal];
+		_aftClip.enabled = NO;
+	}
 }
 
 - (void) layoutSubviews {
@@ -67,7 +97,12 @@
 	_befTitle.frame = CGRectMake(0, 0, halfScreen, 30);
 	_aftTitle.frame = CGRectMake(halfScreen, 0, halfScreen, 30);
 	
-	float recordY = 105;
+	float clipY = 30;
+	
+	_befClip.frame = CGRectMake( (halfScreen - kClipSize) / 2, clipY, kClipSize, kClipSize );
+	_aftClip.frame = CGRectMake( halfScreen + (halfScreen - kClipSize) / 2, clipY, kClipSize, kClipSize );
+	
+	float recordY = 120;
 	
 	_befRecord.frame = CGRectMake(10, recordY, halfScreen - 20, 44 );
 	_aftRecord.frame = CGRectMake(halfScreen + 10, recordY, halfScreen - 20, 44);

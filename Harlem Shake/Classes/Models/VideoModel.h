@@ -35,4 +35,13 @@ SINGLETON_INTR(VideoModel);
 
 - (NSMutableDictionary*) videoDic:(VideoID_t)videoId;
 
+
+- (NSString*) pathToClipForVideo:(VideoID_t)videoId beforeDrop:(BOOL)before;
+- (NSString*) pathToFullVideo:(VideoID_t)videoId;
+- (NSString*) pathToFullVideoTemp:(VideoID_t)videoId;
+- (UIImage*) screenshotForVideo:(VideoID_t)videoId beforeDrop:(BOOL)before;
+- (void) deleteScreenshotForVideo:(VideoID_t)videoId beforeDrop:(BOOL)before;
+- (BOOL) clipExistsforVideo:(VideoID_t)videoId beforeDrop:(BOOL)before;
+- (BOOL) fullVideoExistsForVideo:(VideoID_t)videoId;
+
 @end

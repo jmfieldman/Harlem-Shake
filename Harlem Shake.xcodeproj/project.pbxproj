@@ -39,6 +39,8 @@
 		35FB156316CC1647008BCE06 /* record@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 35FB156116CC1647008BCE06 /* record@2x.png */; };
 		35FB156616CC242E008BCE06 /* RecordingOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FB156516CC242E008BCE06 /* RecordingOptionsViewController.m */; };
 		35FB156916CC4A16008BCE06 /* OptionsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FB156816CC4A15008BCE06 /* OptionsModel.m */; };
+		35FB156C16CC5997008BCE06 /* noclip.png in Resources */ = {isa = PBXBuildFile; fileRef = 35FB156A16CC5997008BCE06 /* noclip.png */; };
+		35FB156D16CC5997008BCE06 /* noclip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 35FB156B16CC5997008BCE06 /* noclip@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +94,8 @@
 		35FB156516CC242E008BCE06 /* RecordingOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordingOptionsViewController.m; sourceTree = "<group>"; };
 		35FB156716CC4A15008BCE06 /* OptionsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsModel.h; sourceTree = "<group>"; };
 		35FB156816CC4A15008BCE06 /* OptionsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsModel.m; sourceTree = "<group>"; };
+		35FB156A16CC5997008BCE06 /* noclip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noclip.png; sourceTree = "<group>"; };
+		35FB156B16CC5997008BCE06 /* noclip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noclip@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,6 +263,8 @@
 		35FB155F16CC1647008BCE06 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				35FB156A16CC5997008BCE06 /* noclip.png */,
+				35FB156B16CC5997008BCE06 /* noclip@2x.png */,
 				35FB156016CC1647008BCE06 /* record.png */,
 				35FB156116CC1647008BCE06 /* record@2x.png */,
 			);
@@ -324,6 +330,8 @@
 				35FB154016CB262C008BCE06 /* part1.m4a in Resources */,
 				35FB156216CC1647008BCE06 /* record.png in Resources */,
 				35FB156316CC1647008BCE06 /* record@2x.png in Resources */,
+				35FB156C16CC5997008BCE06 /* noclip.png in Resources */,
+				35FB156D16CC5997008BCE06 /* noclip@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
