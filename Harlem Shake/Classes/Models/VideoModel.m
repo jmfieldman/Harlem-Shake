@@ -65,6 +65,9 @@ SINGLETON_IMPL(VideoModel);
 	return [NSString stringWithFormat:@"%@/%@", _videosDir, videoId];
 }
 
+- (int) numberOfVideos {
+	return [_videoOrder count];
+}
 
 
 @end

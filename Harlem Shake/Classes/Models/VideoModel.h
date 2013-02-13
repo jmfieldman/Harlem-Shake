@@ -15,10 +15,6 @@ typedef NSString* VideoID_t;
 
 @interface VideoModel : NSObject {
 	
-	/* Video info */
-	NSMutableArray *_videoOrder;
-	NSMutableDictionary *_videos;
-	
 	/* Filesystem cache */
 	NSString *_appSuppDir;
 	NSString *_videosDir;
@@ -27,6 +23,9 @@ typedef NSString* VideoID_t;
 
 SINGLETON_INTR(VideoModel);
 
+@property (nonatomic, assign, readonly) int numberOfVideos;
 
+@property (nonatomic, strong, readonly) NSMutableArray      *videoOrder;
+@property (nonatomic, strong, readonly) NSMutableDictionary *videos;
 
 @end

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface VideoListViewController : UIViewController {
+@interface VideoListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
 	UITableView *_tableView;
 }
 
