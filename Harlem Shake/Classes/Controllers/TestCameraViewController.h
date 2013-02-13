@@ -15,8 +15,11 @@
 	NSString *_testdir;
 	NSString *_testfile;
 	NSString *_testfile2;
+	NSString *_testfile3;
 	
 	AVAssetWriter *_assetWriter;
+	
+	AVAudioPlayer *_ambiancePlayer;
 }
 
 @end

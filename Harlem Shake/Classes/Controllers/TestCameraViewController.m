@@ -20,7 +20,8 @@
 		_testdir = [NSString stringWithFormat:@"%@/test", [paths objectAtIndex:0]];
 		_testfile = [NSString stringWithFormat:@"%@/test.mp4", _testdir];
 		_testfile2 = [NSString stringWithFormat:@"%@/test2.mp4", _testdir];
-		[[NSFileManager defaultManager] removeItemAtPath:_testdir error:nil];
+		_testfile3 = [NSString stringWithFormat:@"%@/test3.mp4", _testdir];
+		//[[NSFileManager defaultManager] removeItemAtPath:_testdir error:nil];
 		[[NSFileManager defaultManager] createDirectoryAtPath:_testdir withIntermediateDirectories:YES attributes:nil error:nil];
 		
 		UIButton *t = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -32,8 +33,14 @@
 		UIButton *t2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 		[t2 setTitle:@"test2" forState:UIControlStateNormal];
 		[t2 addTarget:self action:@selector(pressedTest2:) forControlEvents:UIControlEventTouchUpInside];
-		t2.frame = CGRectMake(150,50,50,50);
+		t2.frame = CGRectMake(125,50,50,50);
 		[self.view addSubview:t2];
+		
+		UIButton *t3 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+		[t3 setTitle:@"comb" forState:UIControlStateNormal];
+		[t3 addTarget:self action:@selector(pressedTest3:) forControlEvents:UIControlEventTouchUpInside];
+		t3.frame = CGRectMake(200,50,50,50);
+		[self.view addSubview:t3];
 		
 	}
 	return self;
@@ -42,7 +49,15 @@
 - (void) pressedTest:(id)sender {
 	
 	_session = [[AVCaptureSession alloc] init];
-	_session.sessionPreset = AVCaptureSessionPresetMedium;
+	_session.sessionPreset = AVCaptureSessionPresetHigh;
+	
+	// audio that goes along with it
+	NSString *audioPath = [NSString stringWithFormat:@"%@/part1.m4a", [[NSBundle mainBundle] resourcePath]];
+	NSURL *audioUrl = [NSURL fileURLWithPath:audioPath];
+	AVURLAsset *audioasset = [[AVURLAsset alloc] initWithURL:audioUrl options:nil];
+	
+	//remove file
+	[[NSFileManager defaultManager] removeItemAtPath:_testfile error:nil];
 	
 	NSArray *devices = [AVCaptureDevice devices];
 	
@@ -87,7 +102,7 @@
 	// Create output
 	
 	AVCaptureMovieFileOutput *movieOutput = [[AVCaptureMovieFileOutput alloc] init];
-	movieOutput.maxRecordedDuration = CMTimeMakeWithSeconds(3, 30);
+	movieOutput.maxRecordedDuration = audioasset.duration;
 	
 	// Attach
 	
@@ -106,8 +121,13 @@
 	
 	// Add video layer
 	AVCaptureVideoPreviewLayer *captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_session];
-	captureVideoPreviewLayer.frame = CGRectMake(100, 100, 100, 100);
+	captureVideoPreviewLayer.frame = CGRectMake(100, 150, 100, 100);
 	[self.view.layer addSublayer:captureVideoPreviewLayer];
+	
+	// Audio ambiance
+	
+	_ambiancePlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioUrl error:nil];
+	[_ambiancePlayer play];
 	
 	// Start the capture session
 	
@@ -124,6 +144,107 @@
 	
 	
 }
+
+
+- (void) pressedTest2:(id)sender {
+	
+	_session = [[AVCaptureSession alloc] init];
+	_session.sessionPreset = AVCaptureSessionPresetHigh;
+	
+	// audio that goes along with it
+	NSString *audioPath = [NSString stringWithFormat:@"%@/part2.m4a", [[NSBundle mainBundle] resourcePath]];
+	NSURL *audioUrl = [NSURL fileURLWithPath:audioPath];
+	AVURLAsset *audioasset = [[AVURLAsset alloc] initWithURL:audioUrl options:nil];
+	
+	//remove file
+	[[NSFileManager defaultManager] removeItemAtPath:_testfile2 error:nil];
+	
+	NSArray *devices = [AVCaptureDevice devices];
+	
+	NSLog(@"test output");
+	
+	AVCaptureDevice *devToUse = nil;
+	
+	for (AVCaptureDevice *device in devices) {
+		
+		NSLog(@"Device name: %@", [device localizedName]);
+		
+		if ([device hasMediaType:AVMediaTypeVideo]) {
+			
+			if ([device position] == AVCaptureDevicePositionBack) {
+				NSLog(@"> Device position : back");
+				devToUse = device;
+			}
+			else {
+				NSLog(@"> Device position : front");
+			}
+		}
+	}
+	
+	// Device
+	
+	NSError *error;
+	AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:devToUse error:&error];
+	if (!input) {
+		NSLog(@"device error: %@", error);
+	}
+	
+	// Add
+	
+	if ([_session canAddInput:input]) {
+		[_session addInput:input];
+	}
+	else {
+		NSLog(@"error: can't add device as input");
+	}
+	
+	
+	// Create output
+	
+	AVCaptureMovieFileOutput *movieOutput = [[AVCaptureMovieFileOutput alloc] init];
+	movieOutput.maxRecordedDuration = audioasset.duration;
+	
+	// Attach
+	
+	if ([_session canAddOutput:movieOutput]) {
+		[_session addOutput:movieOutput];
+	}
+	else {
+		NSLog(@"error: can't add movie output");
+	}
+	
+	// orientation ?
+	
+	NSLog(@"num connections: %d", [movieOutput.connections count]);
+	AVCaptureConnection *conn = [movieOutput.connections objectAtIndex:0];
+	conn.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
+	
+	// Add video layer
+	AVCaptureVideoPreviewLayer *captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_session];
+	captureVideoPreviewLayer.frame = CGRectMake(100, 150, 100, 100);
+	[self.view.layer addSublayer:captureVideoPreviewLayer];
+	
+	// Audio ambiance
+	
+	_ambiancePlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioUrl error:nil];
+	[_ambiancePlayer play];
+	
+	// Start the capture session
+	
+	[_session startRunning];
+	
+	// start recording
+	
+	NSURL *fileURL = [NSURL fileURLWithPath:_testfile2];
+	NSLog(@"strings: %@ <%@>", _testfile2, fileURL);
+	[movieOutput startRecordingToOutputFileURL:fileURL recordingDelegate:self];
+	
+	
+	
+	
+	
+}
+
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error {
 	NSLog(@"did finish");
@@ -143,6 +264,9 @@
 		
 		UISaveVideoAtPathToSavedPhotosAlbum([outputFileURL relativePath], self,@selector(video:didFinishSavingWithError:contextInfo:), nil);
 	}
+	
+	[_session stopRunning];
+	[_ambiancePlayer stop];
 }
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections {
@@ -158,25 +282,28 @@
 
 
 
-- (void) pressedTest2:(id)sender {
+- (void) pressedTest3:(id)sender {
 	NSLog(@"Starting to put together all the files!");
 	
 	AVMutableComposition *mixComposition = [AVMutableComposition composition];
 	
-	NSString *audioPath = [NSString stringWithFormat:@"%@/sound_1.aiff", [[NSBundle mainBundle] resourcePath]];
+	NSString *audioPath = [NSString stringWithFormat:@"%@/part1.m4a", [[NSBundle mainBundle] resourcePath]];
 	NSURL *audioUrl = [NSURL fileURLWithPath:audioPath];
 	AVURLAsset *audioasset = [[AVURLAsset alloc] initWithURL:audioUrl options:nil];
 	
-	NSString *audioPath2 = [NSString stringWithFormat:@"%@/sound_2.aiff", [[NSBundle mainBundle] resourcePath]];
+	NSString *audioPath2 = [NSString stringWithFormat:@"%@/part2.m4a", [[NSBundle mainBundle] resourcePath]];
 	NSURL *audioUrl2 = [NSURL fileURLWithPath:audioPath2];
 	AVURLAsset *audioasset2 = [[AVURLAsset alloc] initWithURL:audioUrl2 options:nil];
 	
 	NSString *videoPath = _testfile;
 	NSURL *videoUrl = [NSURL fileURLWithPath:videoPath];
 	AVURLAsset *videoasset = [[AVURLAsset alloc] initWithURL:videoUrl options:nil];
-	AVURLAsset *videoasset2 = [[AVURLAsset alloc] initWithURL:videoUrl options:nil];
 	
-	NSString *moviepath = _testfile2;
+	NSString *videoPath2 = _testfile2;
+	NSURL *videoUrl2 = [NSURL fileURLWithPath:videoPath2];
+	AVURLAsset *videoasset2 = [[AVURLAsset alloc] initWithURL:videoUrl2 options:nil];
+	
+	NSString *moviepath = _testfile3;
 	NSURL *movieUrl = [NSURL fileURLWithPath:moviepath];
 	
 	if([[NSFileManager defaultManager] fileExistsAtPath:moviepath])
@@ -243,7 +370,10 @@
 				break;
 			default:
 				NSLog(@"Export done");
-				UISaveVideoAtPathToSavedPhotosAlbum(_testfile2, self,@selector(video:didFinishSavingWithError:contextInfo:), nil);
+				UISaveVideoAtPathToSavedPhotosAlbum(_testfile3, self,@selector(video:didFinishSavingWithError:contextInfo:), nil);
+				UILabel *done = [[UILabel alloc] initWithFrame:CGRectMake(0, 300, 50, 50)];
+				done.text = @"done!";
+				[self.view addSubview:done];
 				break;
 		}
 	}];
@@ -251,7 +381,7 @@
 
 
 
-- (void) pressedTest3:(id)sender {
+- (void) pressedTest4:(id)sender {
 
 	_assetWriter = [[AVAssetWriter alloc] initWithURL:[NSURL fileURLWithPath:_testfile2] fileType:AVFileTypeMPEG4 error:nil];
 	if (!_assetWriter) {
