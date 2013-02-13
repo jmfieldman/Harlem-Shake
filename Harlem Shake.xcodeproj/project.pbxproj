@@ -28,6 +28,8 @@
 		35FB154B16CB2FE3008BCE06 /* EXRemoteLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FB154516CB2FE3008BCE06 /* EXRemoteLog.m */; };
 		35FB154C16CB2FE3008BCE06 /* PersistentDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FB154716CB2FE3008BCE06 /* PersistentDictionary.m */; };
 		35FB154D16CB2FE3008BCE06 /* SingletonHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FB154916CB2FE3008BCE06 /* SingletonHelper.m */; };
+		35FB155016CB315D008BCE06 /* VideoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FB154F16CB315D008BCE06 /* VideoListViewController.m */; };
+		35FB155416CB3539008BCE06 /* VideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FB155316CB3539008BCE06 /* VideoModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +63,10 @@
 		35FB154716CB2FE3008BCE06 /* PersistentDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersistentDictionary.m; sourceTree = "<group>"; };
 		35FB154816CB2FE3008BCE06 /* SingletonHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingletonHelper.h; sourceTree = "<group>"; };
 		35FB154916CB2FE3008BCE06 /* SingletonHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingletonHelper.m; sourceTree = "<group>"; };
+		35FB154E16CB315D008BCE06 /* VideoListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoListViewController.h; sourceTree = "<group>"; };
+		35FB154F16CB315D008BCE06 /* VideoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoListViewController.m; sourceTree = "<group>"; };
+		35FB155216CB3539008BCE06 /* VideoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoModel.h; sourceTree = "<group>"; };
+		35FB155316CB3539008BCE06 /* VideoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +149,7 @@
 		35FB152916CAF63F008BCE06 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				35FB155116CB352C008BCE06 /* Models */,
 				35FB154116CB2FE3008BCE06 /* Helpers */,
 				35FB152A16CAF63F008BCE06 /* Controllers */,
 			);
@@ -154,6 +161,8 @@
 			children = (
 				35FB152B16CAF666008BCE06 /* TestCameraViewController.h */,
 				35FB152C16CAF666008BCE06 /* TestCameraViewController.m */,
+				35FB154E16CB315D008BCE06 /* VideoListViewController.h */,
+				35FB154F16CB315D008BCE06 /* VideoListViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -180,6 +189,15 @@
 				35FB154916CB2FE3008BCE06 /* SingletonHelper.m */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		35FB155116CB352C008BCE06 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				35FB155216CB3539008BCE06 /* VideoModel.h */,
+				35FB155316CB3539008BCE06 /* VideoModel.m */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,6 +274,8 @@
 				35FB154B16CB2FE3008BCE06 /* EXRemoteLog.m in Sources */,
 				35FB154C16CB2FE3008BCE06 /* PersistentDictionary.m in Sources */,
 				35FB154D16CB2FE3008BCE06 /* SingletonHelper.m in Sources */,
+				35FB155016CB315D008BCE06 /* VideoListViewController.m in Sources */,
+				35FB155416CB3539008BCE06 /* VideoModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
