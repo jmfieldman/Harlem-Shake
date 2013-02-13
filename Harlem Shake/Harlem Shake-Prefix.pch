@@ -21,4 +21,7 @@
 	/* Helpers */
 	#import "SingletonHelper.h"
 	#import "PersistentDictionary.h"
+
+	/* Model */
+	#import "VideoModel.h"
 #endif
