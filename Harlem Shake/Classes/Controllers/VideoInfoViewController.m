@@ -8,6 +8,7 @@
 
 #import "VideoInfoViewController.h"
 #import "TextEditViewController.h"
+#import "RecordingOptionsViewController.h"
 
 #import "UITableViewCellEx.h"
 #import "ClipControlTableViewCell.h"
@@ -160,6 +161,12 @@
 			evc.videoId = _videoId;
 			evc.attributeName = @"description";
 			[self.navigationController pushViewController:evc animated:YES];
+		}
+		break;
+			
+		case kCellTag_RecordingOptions: {
+			RecordingOptionsViewController *rovc = [[RecordingOptionsViewController alloc] init];
+			[self.navigationController pushViewController:rovc animated:YES];
 		}
 		break;
 			
