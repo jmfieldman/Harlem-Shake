@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3577C6DD16CB66ED00F95120 /* VideoListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3577C6DC16CB66ED00F95120 /* VideoListTableViewCell.m */; };
+		3577C6E016CB68AD00F95120 /* VideoInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3577C6DF16CB68AD00F95120 /* VideoInfoViewController.m */; };
 		35FB150D16CAF5F1008BCE06 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35FB150C16CAF5F1008BCE06 /* UIKit.framework */; };
 		35FB150F16CAF5F1008BCE06 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35FB150E16CAF5F1008BCE06 /* Foundation.framework */; };
 		35FB151116CAF5F1008BCE06 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35FB151016CAF5F1008BCE06 /* CoreGraphics.framework */; };
@@ -36,6 +37,8 @@
 /* Begin PBXFileReference section */
 		3577C6DB16CB66ED00F95120 /* VideoListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoListTableViewCell.h; sourceTree = "<group>"; };
 		3577C6DC16CB66ED00F95120 /* VideoListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoListTableViewCell.m; sourceTree = "<group>"; };
+		3577C6DE16CB68AD00F95120 /* VideoInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoInfoViewController.h; sourceTree = "<group>"; };
+		3577C6DF16CB68AD00F95120 /* VideoInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoInfoViewController.m; sourceTree = "<group>"; };
 		35FB150916CAF5F1008BCE06 /* Harlem Shake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Harlem Shake.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		35FB150C16CAF5F1008BCE06 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		35FB150E16CAF5F1008BCE06 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -176,6 +179,8 @@
 				35FB152C16CAF666008BCE06 /* TestCameraViewController.m */,
 				35FB154E16CB315D008BCE06 /* VideoListViewController.h */,
 				35FB154F16CB315D008BCE06 /* VideoListViewController.m */,
+				3577C6DE16CB68AD00F95120 /* VideoInfoViewController.h */,
+				3577C6DF16CB68AD00F95120 /* VideoInfoViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -290,6 +295,7 @@
 				35FB155016CB315D008BCE06 /* VideoListViewController.m in Sources */,
 				35FB155416CB3539008BCE06 /* VideoModel.m in Sources */,
 				3577C6DD16CB66ED00F95120 /* VideoListTableViewCell.m in Sources */,
+				3577C6E016CB68AD00F95120 /* VideoInfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

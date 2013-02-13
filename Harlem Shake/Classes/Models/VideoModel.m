@@ -70,5 +70,30 @@ SINGLETON_IMPL(VideoModel);
 }
 
 
+- (VideoID_t) createNewVideoId {
+	CFTimeInterval curTime = CFAbsoluteTimeGetCurrent();
+	NSString *newId = [NSString stringWithFormat:@"%lf", curTime];
+	
+	/* Create new entry for the video */
+	NSMutableDictionary *newVideoInfo = [NSMutableDictionary dictionary];
+	[newVideoInfo setObject:newId       forKey:@"videoId"];
+	[newVideoInfo setObject:@"Untitled" forKey:@"title"];
+	[newVideoInfo setObject:@""         forKey:@"description"];
+	
+	/* Create a persistent dictionary for the video */
+	PersistentDictionary *nvd = [self persistentDictionaryForVideo:newId];
+	[nvd.dictionary setObject:newVideoInfo forKey:@"info"];
+	
+	/* Add it to the videos lookup */
+	[_videos setObject:newVideoInfo forKey:newId];
+	
+	/* And add it to the end of the order array */
+	[_videoOrder addObject:newId];
+	
+	/* Done */
+	return newId;
+}
+
+
 @end
 

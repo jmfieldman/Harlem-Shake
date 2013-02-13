@@ -28,4 +28,8 @@ SINGLETON_INTR(VideoModel);
 @property (nonatomic, strong, readonly) NSMutableArray      *videoOrder;
 @property (nonatomic, strong, readonly) NSMutableDictionary *videos;
 
+
+- (VideoID_t) createNewVideoId;
+
+
 @end

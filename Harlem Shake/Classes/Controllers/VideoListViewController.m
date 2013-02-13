@@ -8,6 +8,7 @@
 
 #import "VideoListViewController.h"
 #import "VideoListTableViewCell.h"
+#import "VideoInfoViewController.h"
 
 @implementation VideoListViewController
 
@@ -45,10 +46,22 @@ SINGLETON_IMPL(VideoListViewController);
 }
 
 
+/* When the view comes back into view, let's make sure we reload the table data */
+- (void) viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	[_tableView reloadData];
+}
+
+
 #pragma mark Nav Bar Button handlers
 
 - (void) pressedAddVideo:(id)sender {
+	VideoID_t newId = [[VideoModel sharedInstance] createNewVideoId];
 	
+	VideoInfoViewController *vc = [[VideoInfoViewController alloc] init];
+	vc.videoId = newId;
+	
+	[self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void) pressedEditVideos:(id)sender {

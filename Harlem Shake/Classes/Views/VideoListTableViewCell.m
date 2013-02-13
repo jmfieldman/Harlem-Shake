@@ -23,6 +23,8 @@
 
 - (void) setVideoId:(VideoID_t)videoId {
 	_videoId = videoId;
+	
+	self.textLabel.text = videoId;
 }
 
 @end
