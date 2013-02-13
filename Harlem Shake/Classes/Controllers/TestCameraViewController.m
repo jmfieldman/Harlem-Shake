@@ -20,7 +20,7 @@
 		_testdir = [NSString stringWithFormat:@"%@/test", [paths objectAtIndex:0]];
 		_testfile = [NSString stringWithFormat:@"%@/test.mp4", _testdir];
 		_testfile2 = [NSString stringWithFormat:@"%@/test2.mp4", _testdir];
-		//[[NSFileManager defaultManager] removeItemAtPath:_testdir error:nil];
+		[[NSFileManager defaultManager] removeItemAtPath:_testdir error:nil];
 		[[NSFileManager defaultManager] createDirectoryAtPath:_testdir withIntermediateDirectories:YES attributes:nil error:nil];
 		
 		UIButton *t = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -97,6 +97,12 @@
 	else {
 		NSLog(@"error: can't add movie output");
 	}
+	
+	// orientation ?
+	
+	NSLog(@"num connections: %d", [movieOutput.connections count]);
+	AVCaptureConnection *conn = [movieOutput.connections objectAtIndex:0];
+	conn.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
 	
 	// Add video layer
 	AVCaptureVideoPreviewLayer *captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_session];

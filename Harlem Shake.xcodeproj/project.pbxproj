@@ -338,6 +338,7 @@
 				35FB152816CAF5F1008BCE06 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
