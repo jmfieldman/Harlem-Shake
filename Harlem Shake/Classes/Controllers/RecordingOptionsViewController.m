@@ -133,7 +133,7 @@
 		
 		{
 			UITableViewCellEx *cell = [[UITableViewCellEx alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
-			cell.sectionFooterText = @"If set, after the app has finished recording the \"Before Drop\" clip, it will automatically recording \"After Drop\" clip when this timer finishes.";
+			cell.sectionFooterText = @"If set, after the app has finished recording the \"Before Drop\" clip, it will automatically record the \"After Drop\" clip after this amount of time.";
 			[currentSection addObject:cell];
 		}
 		
