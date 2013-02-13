@@ -13,4 +13,12 @@
 	#import <Foundation/Foundation.h>
 	#import <AVFoundation/AVFoundation.h>
 	#import <CoreMedia/CoreMedia.h>
+
+	/* Debug */
+	#import "EXDebug.h"
+	#import "EXRemoteLog.h"
+
+	/* Helpers */
+	#import "SingletonHelper.h"
+	#import "PersistentDictionary.h"
 #endif

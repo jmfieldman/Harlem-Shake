@@ -24,6 +24,10 @@
 		35FB153716CAFF65008BCE06 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35FB153616CAFF65008BCE06 /* CoreMedia.framework */; };
 		35FB153F16CB262C008BCE06 /* part2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 35FB153D16CB262C008BCE06 /* part2.m4a */; };
 		35FB154016CB262C008BCE06 /* part1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 35FB153E16CB262C008BCE06 /* part1.m4a */; };
+		35FB154A16CB2FE3008BCE06 /* EXDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FB154316CB2FE3008BCE06 /* EXDebug.m */; };
+		35FB154B16CB2FE3008BCE06 /* EXRemoteLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FB154516CB2FE3008BCE06 /* EXRemoteLog.m */; };
+		35FB154C16CB2FE3008BCE06 /* PersistentDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FB154716CB2FE3008BCE06 /* PersistentDictionary.m */; };
+		35FB154D16CB2FE3008BCE06 /* SingletonHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FB154916CB2FE3008BCE06 /* SingletonHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +53,14 @@
 		35FB153616CAFF65008BCE06 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		35FB153D16CB262C008BCE06 /* part2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = part2.m4a; sourceTree = "<group>"; };
 		35FB153E16CB262C008BCE06 /* part1.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = part1.m4a; sourceTree = "<group>"; };
+		35FB154216CB2FE3008BCE06 /* EXDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXDebug.h; sourceTree = "<group>"; };
+		35FB154316CB2FE3008BCE06 /* EXDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXDebug.m; sourceTree = "<group>"; };
+		35FB154416CB2FE3008BCE06 /* EXRemoteLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXRemoteLog.h; sourceTree = "<group>"; };
+		35FB154516CB2FE3008BCE06 /* EXRemoteLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXRemoteLog.m; sourceTree = "<group>"; };
+		35FB154616CB2FE3008BCE06 /* PersistentDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersistentDictionary.h; sourceTree = "<group>"; };
+		35FB154716CB2FE3008BCE06 /* PersistentDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersistentDictionary.m; sourceTree = "<group>"; };
+		35FB154816CB2FE3008BCE06 /* SingletonHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingletonHelper.h; sourceTree = "<group>"; };
+		35FB154916CB2FE3008BCE06 /* SingletonHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingletonHelper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +143,7 @@
 		35FB152916CAF63F008BCE06 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				35FB154116CB2FE3008BCE06 /* Helpers */,
 				35FB152A16CAF63F008BCE06 /* Controllers */,
 			);
 			path = Classes;
@@ -152,6 +165,21 @@
 				35FB153E16CB262C008BCE06 /* part1.m4a */,
 			);
 			path = Audio;
+			sourceTree = "<group>";
+		};
+		35FB154116CB2FE3008BCE06 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				35FB154216CB2FE3008BCE06 /* EXDebug.h */,
+				35FB154316CB2FE3008BCE06 /* EXDebug.m */,
+				35FB154416CB2FE3008BCE06 /* EXRemoteLog.h */,
+				35FB154516CB2FE3008BCE06 /* EXRemoteLog.m */,
+				35FB154616CB2FE3008BCE06 /* PersistentDictionary.h */,
+				35FB154716CB2FE3008BCE06 /* PersistentDictionary.m */,
+				35FB154816CB2FE3008BCE06 /* SingletonHelper.h */,
+				35FB154916CB2FE3008BCE06 /* SingletonHelper.m */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,6 +252,10 @@
 				35FB151916CAF5F1008BCE06 /* main.m in Sources */,
 				35FB151D16CAF5F1008BCE06 /* AppDelegate.m in Sources */,
 				35FB152D16CAF666008BCE06 /* TestCameraViewController.m in Sources */,
+				35FB154A16CB2FE3008BCE06 /* EXDebug.m in Sources */,
+				35FB154B16CB2FE3008BCE06 /* EXRemoteLog.m in Sources */,
+				35FB154C16CB2FE3008BCE06 /* PersistentDictionary.m in Sources */,
+				35FB154D16CB2FE3008BCE06 /* SingletonHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +300,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-DEXDEBUGENABLED";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
