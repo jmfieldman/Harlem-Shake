@@ -30,9 +30,11 @@
 }
 
 
-- (void) setStringToEdit:(NSMutableString *)stringToEdit {
-	_stringToEdit = stringToEdit;
-	_textView.text = stringToEdit;
+- (void) setAttributeName:(NSString *)attributeName {
+	_attributeName = attributeName;
+	if (_videoId) {
+		_textView.text = [[[VideoModel sharedInstance] videoDic:_videoId] objectForKey:_attributeName];
+	}
 }
 
 
@@ -41,7 +43,7 @@
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
-	[_stringToEdit setString:_textView.text];
+	[[[VideoModel sharedInstance] videoDic:_videoId] setObject:[NSMutableString stringWithString:_textView.text] forKey:_attributeName];
 }
 
 

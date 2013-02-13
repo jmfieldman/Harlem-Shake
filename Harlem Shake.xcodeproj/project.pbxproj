@@ -34,6 +34,9 @@
 		35FB155416CB3539008BCE06 /* VideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FB155316CB3539008BCE06 /* VideoModel.m */; };
 		35FB155716CBF7CA008BCE06 /* UITableViewCellEx.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FB155616CBF7CA008BCE06 /* UITableViewCellEx.m */; };
 		35FB155A16CBFDC6008BCE06 /* TextEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FB155916CBFDC6008BCE06 /* TextEditViewController.m */; };
+		35FB155D16CC11E2008BCE06 /* ClipControlTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FB155C16CC11E2008BCE06 /* ClipControlTableViewCell.m */; };
+		35FB156216CC1647008BCE06 /* record.png in Resources */ = {isa = PBXBuildFile; fileRef = 35FB156016CC1647008BCE06 /* record.png */; };
+		35FB156316CC1647008BCE06 /* record@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 35FB156116CC1647008BCE06 /* record@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +82,10 @@
 		35FB155616CBF7CA008BCE06 /* UITableViewCellEx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITableViewCellEx.m; sourceTree = "<group>"; };
 		35FB155816CBFDC6008BCE06 /* TextEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextEditViewController.h; sourceTree = "<group>"; };
 		35FB155916CBFDC6008BCE06 /* TextEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextEditViewController.m; sourceTree = "<group>"; };
+		35FB155B16CC11E2008BCE06 /* ClipControlTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClipControlTableViewCell.h; sourceTree = "<group>"; };
+		35FB155C16CC11E2008BCE06 /* ClipControlTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClipControlTableViewCell.m; sourceTree = "<group>"; };
+		35FB156016CC1647008BCE06 /* record.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = record.png; sourceTree = "<group>"; };
+		35FB156116CC1647008BCE06 /* record@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "record@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +114,8 @@
 				35FB155616CBF7CA008BCE06 /* UITableViewCellEx.m */,
 				3577C6DB16CB66ED00F95120 /* VideoListTableViewCell.h */,
 				3577C6DC16CB66ED00F95120 /* VideoListTableViewCell.m */,
+				35FB155B16CC11E2008BCE06 /* ClipControlTableViewCell.h */,
+				35FB155C16CC11E2008BCE06 /* ClipControlTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -157,6 +166,7 @@
 		35FB151316CAF5F1008BCE06 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				35FB155E16CC1647008BCE06 /* Images */,
 				35FB153816CB0913008BCE06 /* Audio */,
 				35FB151416CAF5F1008BCE06 /* Harlem Shake-Info.plist */,
 				35FB151516CAF5F1008BCE06 /* InfoPlist.strings */,
@@ -228,6 +238,23 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		35FB155E16CC1647008BCE06 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				35FB155F16CC1647008BCE06 /* UI */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		35FB155F16CC1647008BCE06 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				35FB156016CC1647008BCE06 /* record.png */,
+				35FB156116CC1647008BCE06 /* record@2x.png */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -285,6 +312,8 @@
 				35FB152316CAF5F1008BCE06 /* Default-568h@2x.png in Resources */,
 				35FB153F16CB262C008BCE06 /* part2.m4a in Resources */,
 				35FB154016CB262C008BCE06 /* part1.m4a in Resources */,
+				35FB156216CC1647008BCE06 /* record.png in Resources */,
+				35FB156316CC1647008BCE06 /* record@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +337,7 @@
 				3577C6E016CB68AD00F95120 /* VideoInfoViewController.m in Sources */,
 				35FB155716CBF7CA008BCE06 /* UITableViewCellEx.m in Sources */,
 				35FB155A16CBFDC6008BCE06 /* TextEditViewController.m in Sources */,
+				35FB155D16CC11E2008BCE06 /* ClipControlTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

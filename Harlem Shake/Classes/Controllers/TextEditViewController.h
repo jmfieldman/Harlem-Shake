@@ -12,6 +12,7 @@
 	UITextView *_textView;
 }
 
-@property (nonatomic, strong) NSMutableString *stringToEdit;
+@property (nonatomic, strong) VideoID_t  videoId;
+@property (nonatomic, strong) NSString  *attributeName;
 
 @end

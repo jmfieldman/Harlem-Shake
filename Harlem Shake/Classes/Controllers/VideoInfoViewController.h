@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ClipControlTableViewCell.h"
 
-@interface VideoInfoViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
+@interface VideoInfoViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, ClipControlTableViewCellDelegate> {
 	/* Array that contains the table cells */
 	NSMutableArray *_tableCells;
 	

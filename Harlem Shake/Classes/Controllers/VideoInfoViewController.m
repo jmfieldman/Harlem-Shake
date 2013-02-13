@@ -8,11 +8,13 @@
 
 #import "VideoInfoViewController.h"
 #import "TextEditViewController.h"
+
 #import "UITableViewCellEx.h"
+#import "ClipControlTableViewCell.h"
 
-
-#define kCellTag_Title       1
-#define kCellTag_Description 2
+#define kCellTag_Title            1
+#define kCellTag_Description      2
+#define kCellTag_RecordingOptions 3
 
 
 @implementation VideoInfoViewController
@@ -55,21 +57,54 @@
 	_tableCells = [NSMutableArray array];
 	
 	{
-		UITableViewCellEx *cell = [[UITableViewCellEx alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		cell.textLabel.text = @"Title";
-		cell.detailTextLabel.text = [[[VideoModel sharedInstance] videoDic:_videoId] objectForKey:@"title"];
-		cell.tag = kCellTag_Title;
-		[_tableCells addObject:cell];
+		NSMutableArray *currentSection = [NSMutableArray array];
+		
+		{
+			UITableViewCellEx *cell = [[UITableViewCellEx alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
+			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+			cell.textLabel.text = @"Title";
+			cell.detailTextLabel.text = [[[VideoModel sharedInstance] videoDic:_videoId] objectForKey:@"title"];
+			if (![cell.detailTextLabel.text length]) cell.detailTextLabel.text = @"Untitled";
+			cell.tag = kCellTag_Title;
+			cell.shouldHighlight = YES;
+			[currentSection addObject:cell];
+		}
+		
+		{
+			UITableViewCellEx *cell = [[UITableViewCellEx alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
+			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+			cell.textLabel.text = @"Description";
+			cell.detailTextLabel.text = [[[VideoModel sharedInstance] videoDic:_videoId] objectForKey:@"description"];
+			if (![cell.detailTextLabel.text length]) cell.detailTextLabel.text = @"None";
+			cell.tag = kCellTag_Description;
+			cell.shouldHighlight = YES;
+			[currentSection addObject:cell];
+		}
+		
+		{
+			UITableViewCellEx *cell = [[UITableViewCellEx alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
+			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+			cell.textLabel.text = @"Recording Options";
+			cell.tag = kCellTag_RecordingOptions;
+			cell.shouldHighlight = YES;
+			[currentSection addObject:cell];
+		}
+			
+		[_tableCells addObject:currentSection];
 	}
 	
 	{
-		UITableViewCellEx *cell = [[UITableViewCellEx alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		cell.textLabel.text = @"Description";
-		cell.detailTextLabel.text = [[[VideoModel sharedInstance] videoDic:_videoId] objectForKey:@"description"];
-		cell.tag = kCellTag_Description;
-		[_tableCells addObject:cell];
+		NSMutableArray *currentSection = [NSMutableArray array];
+		
+		{
+			ClipControlTableViewCell *cell = [[ClipControlTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+			cell.videoId = _videoId;
+			cell.shouldHighlight = NO;
+			cell.controlDelegate = self;
+			[currentSection addObject:cell];
+		}
+				
+		[_tableCells addObject:currentSection];
 	}
 	
 }
@@ -80,28 +115,50 @@
 }
 
 
+#pragma mark ClipControlTableViewCellDelegate methods
+
+- (void) clipControlPressedWatch:(BOOL)before {
+	
+}
+
+- (void) clipControlPressedRecord:(BOOL)before {
+	
+}
+
+
 #pragma mark UITableViewDelegate methods
 
-- (int) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (int) numberOfSectionsInTableView:(UITableView *)tableView {
 	return [_tableCells count];
 }
 
+- (int) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	return [[_tableCells objectAtIndex:section] count];
+}
+
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	return [_tableCells objectAtIndex:indexPath.row];
+	return [[_tableCells objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	[tableView deselectRowAtIndexPath:indexPath animated:NO];
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
-	UITableViewCell *cell = [_tableCells objectAtIndex:indexPath.row];
+	UITableViewCell *cell = [self tableView:_tableView cellForRowAtIndexPath:indexPath];
 	switch (cell.tag) {
 		case kCellTag_Title: {
 			TextEditViewController *evc = [[TextEditViewController alloc] init];
 			evc.title = @"Title";
-			evc.stringToEdit = [[[VideoModel sharedInstance] videoDic:_videoId] objectForKey:@"title"];
+			evc.videoId = _videoId;
+			evc.attributeName = @"title";
+			[self.navigationController pushViewController:evc animated:YES];
+		}
+		break;
 			
-			NSLog(@"str: %@ type: %@", [[[VideoModel sharedInstance] videoDic:_videoId] objectForKey:@"title"], [[[[[VideoModel sharedInstance] videoDic:_videoId] objectForKey:@"title"] class] superclass]);
-			
+		case kCellTag_Description: {
+			TextEditViewController *evc = [[TextEditViewController alloc] init];
+			evc.title = @"Description";
+			evc.videoId = _videoId;
+			evc.attributeName = @"description";
 			[self.navigationController pushViewController:evc animated:YES];
 		}
 		break;
@@ -109,6 +166,11 @@
 		default:
 			break;
 	}
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	UITableViewCellEx *cell = [[_tableCells objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+	return cell.cellHeight;
 }
 
 @end
