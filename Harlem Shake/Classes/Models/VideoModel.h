@@ -30,6 +30,7 @@ SINGLETON_INTR(VideoModel);
 
 
 - (VideoID_t) createNewVideoId;
-
+- (void) deleteVideo:(VideoID_t)videoId;
+- (void) moveVideoAtIndex:(int)from toIndex:(int)to;
 
 @end

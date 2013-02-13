@@ -90,10 +90,38 @@ SINGLETON_IMPL(VideoModel);
 	/* And add it to the end of the order array */
 	[_videoOrder addObject:newId];
 	
+	/* Save video info */
+	[[PersistentDictionary dictionaryWithName:@"videoOrder"] saveToFile];
+	[nvd saveToFile];
+	
 	/* Done */
 	return newId;
 }
 
+
+- (void) deleteVideo:(VideoID_t)videoId {
+	
+	EXLog(MODEL, INFO, @"Removing video [%@]", videoId);
+	
+	[_videoOrder removeObject:videoId];
+	[_videos     removeObjectForKey:videoId];
+	
+	[PersistentDictionary deleteDictionaryNamed:[self persistentDictionaryNameForVideo:videoId]];
+	
+	/* Save video order */
+	[[PersistentDictionary dictionaryWithName:@"videoOrder"] saveToFile];
+}
+
+
+- (void) moveVideoAtIndex:(int)from toIndex:(int)to {
+	
+	VideoID_t vid = [_videoOrder objectAtIndex:from];
+	[_videoOrder removeObjectAtIndex:from];
+	[_videoOrder insertObject:vid atIndex:to];
+	
+	/* Save video order */
+	[[PersistentDictionary dictionaryWithName:@"videoOrder"] saveToFile];
+}
 
 @end
 

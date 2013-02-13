@@ -18,6 +18,7 @@
 + (void) saveAllDictionaries;
 + (void) clearDictionaryMemCache;
 + (void) clearDictionaryDiskCache;
++ (void) deleteDictionaryNamed:(NSString*)name;
 
 - (id) initWithFileName:(NSString*)name;
 - (void) saveToFile;

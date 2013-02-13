@@ -65,13 +65,40 @@ SINGLETON_IMPL(VideoListViewController);
 }
 
 - (void) pressedEditVideos:(id)sender {
-	
+	if ([_tableView isEditing]) {
+		[_tableView setEditing:NO animated:YES];
+		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(pressedEditVideos:)];
+	} else {
+		[_tableView setEditing:YES animated:YES];
+		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(pressedEditVideos:)];
+	}
 }
 
 #pragma mark UITableViewDelegate methods
 
 - (int) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	return [VideoModel sharedInstance].numberOfVideos;
+}
+
+- (BOOL) tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+	return YES;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+	EXLog(RENDER, DBG, @"move: from [%d] to [%d]", fromIndexPath.row, toIndexPath.row);
+	
+	[[VideoModel sharedInstance] moveVideoAtIndex:fromIndexPath.row toIndex:toIndexPath.row];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+	EXLog(RENDER, DBG, @"commit: %d", indexPath.row);
+	
+	/* Wants to delete the video at this row */
+	VideoID_t vid = [[VideoModel sharedInstance].videoOrder objectAtIndex:indexPath.row];
+	[[VideoModel sharedInstance] deleteVideo:vid];
+	
+	/* Animate delete */
+	[_tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -85,6 +112,18 @@ SINGLETON_IMPL(VideoListViewController);
 	
 	/* Return the cell */
 	return cell;
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	/* Go look at the info for that video */
+	VideoID_t videoId = [[VideoModel sharedInstance].videoOrder objectAtIndex:indexPath.row];
+	
+	VideoInfoViewController *vc = [[VideoInfoViewController alloc] init];
+	vc.videoId = videoId;
+	
+	[self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

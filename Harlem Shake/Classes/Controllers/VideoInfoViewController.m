@@ -15,7 +15,7 @@
 	if ((self = [super init])) {
 		/* Initialize the main view */
 		self.view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
-		self.view.backgroundColor = [UIColor blueColor];
+		self.view.backgroundColor = [UIColor clearColor];
 		self.view.autoresizesSubviews = YES;
 		self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 		

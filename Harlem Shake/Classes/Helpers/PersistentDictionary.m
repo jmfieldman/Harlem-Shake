@@ -39,6 +39,19 @@ static __strong NSMutableDictionary *s_dictionaryDictionary = nil;
 	s_dictionaryDictionary = [[NSMutableDictionary alloc] initWithCapacity:10];
 }
 
++ (void) deleteDictionaryNamed:(NSString*)name {
+	if (s_dictionaryDictionary) {
+		[s_dictionaryDictionary removeObjectForKey:name];
+	}
+	
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+	NSString *documentsDirectory = [NSString stringWithFormat:@"%@/dics", [paths objectAtIndex:0]];
+	
+	[[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithFormat:@"%@/%@.plist", documentsDirectory, name] error:nil];
+	[[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithFormat:@"%@/%@.json",  documentsDirectory, name] error:nil];
+	[[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithFormat:@"%@/%@.md5",   documentsDirectory, name] error:nil];
+}
+
 
 + (void) clearDictionaryDiskCache {
 	
