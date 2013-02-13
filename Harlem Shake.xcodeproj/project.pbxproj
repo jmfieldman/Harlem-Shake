@@ -32,6 +32,8 @@
 		35FB154D16CB2FE3008BCE06 /* SingletonHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FB154916CB2FE3008BCE06 /* SingletonHelper.m */; };
 		35FB155016CB315D008BCE06 /* VideoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FB154F16CB315D008BCE06 /* VideoListViewController.m */; };
 		35FB155416CB3539008BCE06 /* VideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FB155316CB3539008BCE06 /* VideoModel.m */; };
+		35FB155716CBF7CA008BCE06 /* UITableViewCellEx.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FB155616CBF7CA008BCE06 /* UITableViewCellEx.m */; };
+		35FB155A16CBFDC6008BCE06 /* TextEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FB155916CBFDC6008BCE06 /* TextEditViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +75,10 @@
 		35FB154F16CB315D008BCE06 /* VideoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoListViewController.m; sourceTree = "<group>"; };
 		35FB155216CB3539008BCE06 /* VideoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoModel.h; sourceTree = "<group>"; };
 		35FB155316CB3539008BCE06 /* VideoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoModel.m; sourceTree = "<group>"; };
+		35FB155516CBF7CA008BCE06 /* UITableViewCellEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITableViewCellEx.h; sourceTree = "<group>"; };
+		35FB155616CBF7CA008BCE06 /* UITableViewCellEx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITableViewCellEx.m; sourceTree = "<group>"; };
+		35FB155816CBFDC6008BCE06 /* TextEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextEditViewController.h; sourceTree = "<group>"; };
+		35FB155916CBFDC6008BCE06 /* TextEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextEditViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +103,8 @@
 		3577C6DA16CB66CA00F95120 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				35FB155516CBF7CA008BCE06 /* UITableViewCellEx.h */,
+				35FB155616CBF7CA008BCE06 /* UITableViewCellEx.m */,
 				3577C6DB16CB66ED00F95120 /* VideoListTableViewCell.h */,
 				3577C6DC16CB66ED00F95120 /* VideoListTableViewCell.m */,
 			);
@@ -181,6 +189,8 @@
 				35FB154F16CB315D008BCE06 /* VideoListViewController.m */,
 				3577C6DE16CB68AD00F95120 /* VideoInfoViewController.h */,
 				3577C6DF16CB68AD00F95120 /* VideoInfoViewController.m */,
+				35FB155816CBFDC6008BCE06 /* TextEditViewController.h */,
+				35FB155916CBFDC6008BCE06 /* TextEditViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -296,6 +306,8 @@
 				35FB155416CB3539008BCE06 /* VideoModel.m in Sources */,
 				3577C6DD16CB66ED00F95120 /* VideoListTableViewCell.m in Sources */,
 				3577C6E016CB68AD00F95120 /* VideoInfoViewController.m in Sources */,
+				35FB155716CBF7CA008BCE06 /* UITableViewCellEx.m in Sources */,
+				35FB155A16CBFDC6008BCE06 /* TextEditViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

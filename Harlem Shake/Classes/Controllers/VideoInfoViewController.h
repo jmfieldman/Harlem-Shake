@@ -8,7 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@interface VideoInfoViewController : UIViewController
+@interface VideoInfoViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
+	/* Array that contains the table cells */
+	NSMutableArray *_tableCells;
+	
+	/* Table view */
+	UITableView *_tableView;
+}
 
 @property (nonatomic, strong) VideoID_t videoId;
 

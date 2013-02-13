@@ -65,6 +65,10 @@ SINGLETON_IMPL(VideoModel);
 	return [NSString stringWithFormat:@"%@/%@", _videosDir, videoId];
 }
 
+- (NSMutableDictionary*) videoDic:(VideoID_t)videoId {
+	return [_videos objectForKey:videoId];
+}
+
 - (int) numberOfVideos {
 	return [_videoOrder count];
 }
@@ -77,8 +81,8 @@ SINGLETON_IMPL(VideoModel);
 	/* Create new entry for the video */
 	NSMutableDictionary *newVideoInfo = [NSMutableDictionary dictionary];
 	[newVideoInfo setObject:newId       forKey:@"videoId"];
-	[newVideoInfo setObject:@"Untitled" forKey:@"title"];
-	[newVideoInfo setObject:@""         forKey:@"description"];
+	[newVideoInfo setObject:[NSMutableString stringWithString:@"Untitled"] forKey:@"title"];
+	[newVideoInfo setObject:[NSMutableString stringWithString:@""        ] forKey:@"description"];
 	
 	/* Create a persistent dictionary for the video */
 	PersistentDictionary *nvd = [self persistentDictionaryForVideo:newId];

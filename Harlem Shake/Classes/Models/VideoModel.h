@@ -33,4 +33,6 @@ SINGLETON_INTR(VideoModel);
 - (void) deleteVideo:(VideoID_t)videoId;
 - (void) moveVideoAtIndex:(int)from toIndex:(int)to;
 
+- (NSMutableDictionary*) videoDic:(VideoID_t)videoId;
+
 @end

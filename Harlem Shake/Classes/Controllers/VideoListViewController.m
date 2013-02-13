@@ -18,6 +18,9 @@ SINGLETON_IMPL(VideoListViewController);
 - (id) init {
 	if ((self = [super init])) {
 		
+		/* title */
+		self.title = @"Video List";
+		
 		/* Initialize the main view */
 		self.view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
 		self.view.backgroundColor = [UIColor clearColor];

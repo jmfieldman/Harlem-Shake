@@ -7,6 +7,58 @@
 #define USE_DEFAULT_DICTIONARIES 0
 #define USE_JSON_FORMAT          1
 
+
+#if 0 /* Not sure this is required */
+
+
+@interface NSJSONSerialization (NSJSONSerialization_MutableBugFix)
++ (id)JSONObjectWithDataFixed:(NSData *)data options:(NSJSONReadingOptions)opt error:(NSError **)error;
++ (id)JSONMutableFixObject:(id)object;
+@end
+
+@implementation NSJSONSerialization (NSJSONSerialization_MutableBugFix)
+
++ (id)JSONObjectWithDataFixed:(NSData *)data options:(NSJSONReadingOptions)opt error:(NSError **)error {
+    id object = [NSJSONSerialization JSONObjectWithData:data options:opt error:error];
+	
+    if (opt & NSJSONReadingMutableContainers) {
+        return [self JSONMutableFixObject:object];
+    }
+	
+    return object;
+}
+
++ (id)JSONMutableFixObject:(id)object {
+    if ([object isKindOfClass:[NSDictionary class]]) {
+        // NSJSONSerialization creates an immutable container if it's empty (boo!!)
+        if ([object count] == 0) {
+            object = [object mutableCopy];
+        }
+		
+        for (NSString *key in [object allKeys]) {
+            [object setObject:[self JSONMutableFixObject:[object objectForKey:key]] forKey:key];
+        }
+    } else if ([object isKindOfClass:[NSArray class]]) {
+        // NSJSONSerialization creates an immutable container if it's empty (boo!!)
+        if (![object count] == 0) {
+            object = [object mutableCopy];
+        }
+		
+        for (NSUInteger i = 0; i < [object count]; ++i) {
+            [object replaceObjectAtIndex:i withObject:[self JSONMutableFixObject:[object objectAtIndex:i]]];
+        }
+    }
+	
+    return object;
+}
+
+@end
+
+#endif
+
+
+
+
 static __strong NSMutableDictionary *s_dictionaryDictionary = nil;
 
 @implementation PersistentDictionary
