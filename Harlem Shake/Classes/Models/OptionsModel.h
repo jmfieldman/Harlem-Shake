@@ -8,13 +8,34 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum RecordingQuality {
+	QUAL_LOW  = 0,
+	QUAL_MED  = 1,
+	QUAL_HIGH = 2,
+} RecordingQuality_t;
+
+
 @interface OptionsModel : NSObject
 
 SINGLETON_INTR(OptionsModel);
 
++ (BOOL) playSong;
++ (void) setPlaySong:(BOOL)playSong;
+
++ (int) desiredQuality;
++ (void) setDesiredQuality:(int)quality;
+
 + (int) timerDelay;
 + (void) setTimerDelay:(int)timerDelay;
 
++ (int) recordBoth;
++ (void) setRecordBoth:(int)recordBoth;
 
++ (BOOL) flashBlink;
++ (void) setFlashBlink:(BOOL)flashBlink;
+
+/* Device abilities */
+
++ (BOOL) hasDeviceWithFlash;
 
 @end

@@ -24,4 +24,5 @@
 
 	/* Model */
 	#import "VideoModel.h"
+	#import "OptionsModel.h"
 #endif

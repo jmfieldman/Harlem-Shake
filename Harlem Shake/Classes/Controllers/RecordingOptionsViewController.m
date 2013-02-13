@@ -54,7 +54,9 @@
 		
 		{
 			UISwitch *tog = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 80, 40)];
-						
+			[tog addTarget:self action:@selector(toggledPlaySong:) forControlEvents:UIControlEventValueChanged];
+			tog.on = [OptionsModel playSong];
+			
 			UITableViewCellEx *cell = [[UITableViewCellEx alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 			cell.textLabel.text = @"Play Song";
@@ -76,7 +78,9 @@
 		
 		{
 			UISegmentedControl *tog = [[UISegmentedControl alloc] initWithItems:@[@"Low", @"Medium", @"High"]];
+			[tog addTarget:self action:@selector(toggledQuality:) forControlEvents:UIControlEventValueChanged];
 			tog.segmentedControlStyle = UISegmentedControlStyleBar;
+			tog.selectedSegmentIndex = [OptionsModel desiredQuality];
 			
 			UITableViewCellEx *cell = [[UITableViewCellEx alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -99,7 +103,13 @@
 		
 		{
 			UISegmentedControl *tog = [[UISegmentedControl alloc] initWithItems:@[@"Off", @"5s", @"10s", @"30s"]];
+			[tog addTarget:self action:@selector(toggledTimerDelay:) forControlEvents:UIControlEventValueChanged];
 			tog.segmentedControlStyle = UISegmentedControlStyleBar;
+			tog.selectedSegmentIndex = 0;
+			int opt = [OptionsModel timerDelay];
+			if (opt == 5 ) tog.selectedSegmentIndex = 1;
+			if (opt == 10) tog.selectedSegmentIndex = 2;
+			if (opt == 30) tog.selectedSegmentIndex = 3;
 			
 			UITableViewCellEx *cell = [[UITableViewCellEx alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -122,7 +132,13 @@
 		
 		{
 			UISegmentedControl *tog = [[UISegmentedControl alloc] initWithItems:@[@"Off", @"5s", @"10s", @"30s"]];
+			[tog addTarget:self action:@selector(toggledRecordBoth:) forControlEvents:UIControlEventValueChanged];
 			tog.segmentedControlStyle = UISegmentedControlStyleBar;
+			tog.selectedSegmentIndex = 0;
+			int opt = [OptionsModel recordBoth];
+			if (opt == 5 ) tog.selectedSegmentIndex = 1;
+			if (opt == 10) tog.selectedSegmentIndex = 2;
+			if (opt == 30) tog.selectedSegmentIndex = 3;
 			
 			UITableViewCellEx *cell = [[UITableViewCellEx alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -140,22 +156,24 @@
 		[_tableCells addObject:currentSection];
 	}
 	
-	{
+	if ([OptionsModel hasDeviceWithFlash]) {
 		NSMutableArray *currentSection = [NSMutableArray array];
 		
 		{
 			UISwitch *tog = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 80, 40)];
+			[tog addTarget:self action:@selector(toggledFlashBlink:) forControlEvents:UIControlEventValueChanged];
+			tog.on = [OptionsModel flashBlink];
 			
 			UITableViewCellEx *cell = [[UITableViewCellEx alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-			cell.textLabel.text = @"Timer Blink";
+			cell.textLabel.text = @"Timer Flash Blink";
 			cell.accessoryView = tog;
 			[currentSection addObject:cell];
 		}
 		
 		{
 			UITableViewCellEx *cell = [[UITableViewCellEx alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
-			cell.sectionFooterText = @"If ON, the flash will blink during the last three seconds of the record timer.";
+			cell.sectionFooterText = @"We've detected that your device has a flash.  If this option is ON, and the timer delay is enabled, the flash will blink during the last three seconds of the timer before recording starts.";
 			[currentSection addObject:cell];
 		}
 		
@@ -163,6 +181,42 @@
 	}
 	
 }
+
+
+#pragma mark Accessory handlers
+
+- (void) toggledPlaySong:(id)sender {
+	UISwitch *tog = (UISwitch*)sender;
+	[OptionsModel setPlaySong:tog.on];
+}
+
+
+- (void) toggledQuality:(id)sender {
+	UISegmentedControl *tog = (UISegmentedControl*)sender;
+	[OptionsModel setDesiredQuality:tog.selectedSegmentIndex];
+}
+
+- (void) toggledTimerDelay:(id)sender {
+	UISegmentedControl *tog = (UISegmentedControl*)sender;
+	if (tog.selectedSegmentIndex == 0) [OptionsModel setTimerDelay:0];
+	if (tog.selectedSegmentIndex == 1) [OptionsModel setTimerDelay:5];
+	if (tog.selectedSegmentIndex == 2) [OptionsModel setTimerDelay:10];
+	if (tog.selectedSegmentIndex == 3) [OptionsModel setTimerDelay:30];
+}
+
+- (void) toggledRecordBoth:(id)sender {
+	UISegmentedControl *tog = (UISegmentedControl*)sender;
+	if (tog.selectedSegmentIndex == 0) [OptionsModel setRecordBoth:0];
+	if (tog.selectedSegmentIndex == 1) [OptionsModel setRecordBoth:5];
+	if (tog.selectedSegmentIndex == 2) [OptionsModel setRecordBoth:10];
+	if (tog.selectedSegmentIndex == 3) [OptionsModel setRecordBoth:30];
+}
+
+- (void) toggledFlashBlink:(id)sender {
+	UISwitch *tog = (UISwitch*)sender;
+	[OptionsModel setFlashBlink:tog.on];
+}
+
 
 #pragma mark UITableViewDelegate methods
 
