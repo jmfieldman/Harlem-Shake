@@ -20,6 +20,11 @@
 	UIView *_botLContainer;
 	
 	UIButton *_cancelButton;
+	UISegmentedControl *_cameraChooser;
+	UISegmentedControl *_flashChooser;
+	float               _flashY;
+	UILabel            *_camLabel;
+	UILabel            *_flashLabel;
 	
 	/* Recording */
 	AVCaptureSession     *_captureSession;

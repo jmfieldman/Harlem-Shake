@@ -49,5 +49,7 @@ SINGLETON_INTR(OptionsModel);
 + (AVCaptureDevice*) frontDevice;
 + (AVCaptureDevice*) backDevice;
 + (BOOL) hasFrontAndBackVideo;
++ (void) turnOffAllTorches;
++ (void) turnFlashOn:(BOOL)on forDevice:(AVCaptureDevice*)device;
 
 @end

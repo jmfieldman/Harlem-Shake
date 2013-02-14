@@ -120,6 +120,24 @@ SINGLETON_IMPL(OptionsModel);
 	return ([OptionsModel frontDevice] && [OptionsModel backDevice]);
 }
 
++ (void) turnOffAllTorches {
+	NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+	for (AVCaptureDevice *device in devices) {
+		[OptionsModel turnFlashOn:NO forDevice:device];
+	}
+}
+
++ (void) turnFlashOn:(BOOL)on forDevice:(AVCaptureDevice*)device {
+	AVCaptureTorchMode mode = on ? AVCaptureTorchModeOn : AVCaptureTorchModeOff;
+	if ([device isTorchModeSupported:mode]) {
+		BOOL gotLock = [device lockForConfiguration:nil];
+		if (gotLock) {
+			device.torchMode = mode;
+			[device unlockForConfiguration];
+		}
+	}
+}
+
 
 @end
 
