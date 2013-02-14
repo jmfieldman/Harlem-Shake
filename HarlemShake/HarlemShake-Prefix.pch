@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'HarlemShake' target in the 'HarlemShake' project
+// Prefix header for all source files of the 'Harlem Shake' target in the 'Harlem Shake' project
 //
 
 #import <Availability.h>
@@ -11,4 +11,18 @@
 #ifdef __OBJC__
 	#import <UIKit/UIKit.h>
 	#import <Foundation/Foundation.h>
+	#import <AVFoundation/AVFoundation.h>
+	#import <CoreMedia/CoreMedia.h>
+
+	/* Debug */
+	#import "EXDebug.h"
+	#import "EXRemoteLog.h"
+
+	/* Helpers */
+	#import "SingletonHelper.h"
+	#import "PersistentDictionary.h"
+
+	/* Model */
+	#import "VideoModel.h"
+	#import "OptionsModel.h"
 #endif
