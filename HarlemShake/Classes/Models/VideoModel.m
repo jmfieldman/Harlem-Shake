@@ -135,6 +135,10 @@ SINGLETON_IMPL(VideoModel);
 	return [NSString stringWithFormat:@"%@/%@.mov", [self dataDirectoryForVideo:videoId], before ? @"before" : @"after"];
 }
 
+- (NSString*) pathToClipForVideoTemp:(VideoID_t)videoId beforeDrop:(BOOL)before {
+	return [NSString stringWithFormat:@"%@/%@_temp.mov", [self dataDirectoryForVideo:videoId], before ? @"before" : @"after"];
+}
+
 - (NSString*) pathToFullVideo:(VideoID_t)videoId {
 	return [NSString stringWithFormat:@"%@/full.mp4", [self dataDirectoryForVideo:videoId]];
 }

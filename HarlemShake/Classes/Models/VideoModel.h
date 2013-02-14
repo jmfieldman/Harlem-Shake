@@ -37,6 +37,7 @@ SINGLETON_INTR(VideoModel);
 
 
 - (NSString*) pathToClipForVideo:(VideoID_t)videoId beforeDrop:(BOOL)before;
+- (NSString*) pathToClipForVideoTemp:(VideoID_t)videoId beforeDrop:(BOOL)before;
 - (NSString*) pathToFullVideo:(VideoID_t)videoId;
 - (NSString*) pathToFullVideoTemp:(VideoID_t)videoId;
 - (UIImage*) screenshotForVideo:(VideoID_t)videoId beforeDrop:(BOOL)before;

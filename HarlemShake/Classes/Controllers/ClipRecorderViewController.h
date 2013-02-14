@@ -39,6 +39,14 @@
 	AVCaptureDevice      *_captureDevice;
 	AVCaptureDeviceInput *_captureDeviceInput;
 	
+	/* Asset stuff */
+	AVURLAsset *_befAudioAsset;
+	AVURLAsset *_aftAudioAsset;
+	NSURL *_befClipURL;
+	NSURL *_aftClipURL;
+	NSURL *_befClipTempURL;
+	NSURL *_aftClipTempURL;
+	
 	/* Orientation tracking */
 	CMMotionManager    *_motionManager;
 	UIDeviceOrientation _currentOrientation;

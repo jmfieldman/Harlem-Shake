@@ -16,6 +16,19 @@
 		self.videoId = videoId;
 		self.openedForBeforeClip = before;
 		
+		/* Configure asset and URLs */
+		_befAudioAsset  = [[AVURLAsset alloc] initWithURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/part1.m4a", [[NSBundle mainBundle] resourcePath]]] options:nil];
+		_aftAudioAsset  = [[AVURLAsset alloc] initWithURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/part2.m4a", [[NSBundle mainBundle] resourcePath]]] options:nil];
+		
+		_befClipURL     = [NSURL fileURLWithPath:[[VideoModel sharedInstance] pathToClipForVideo:videoId     beforeDrop:YES]];
+		_aftClipURL     = [NSURL fileURLWithPath:[[VideoModel sharedInstance] pathToClipForVideo:videoId     beforeDrop:NO]];
+		_befClipTempURL = [NSURL fileURLWithPath:[[VideoModel sharedInstance] pathToClipForVideoTemp:videoId beforeDrop:YES]];
+		_aftClipTempURL = [NSURL fileURLWithPath:[[VideoModel sharedInstance] pathToClipForVideoTemp:videoId beforeDrop:NO]];
+		
+		/* Remove temp files if they exist */
+		[[NSFileManager defaultManager] removeItemAtURL:_befClipTempURL error:nil];
+		[[NSFileManager defaultManager] removeItemAtURL:_aftClipTempURL error:nil];
+		
 		/* Initialize the main view */
 		self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
 		self.view.backgroundColor = [UIColor clearColor];
