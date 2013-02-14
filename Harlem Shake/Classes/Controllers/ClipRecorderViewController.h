@@ -12,7 +12,9 @@
 	UIButton *_cancelButton;
 	
 	/* Recording */
-	AVCaptureSession *_captureSession;
+	AVCaptureSession     *_captureSession;
+	AVCaptureDevice      *_captureDevice;
+	AVCaptureDeviceInput *_captureDeviceInput;
 }
 
 @property (nonatomic, strong) VideoID_t videoId;

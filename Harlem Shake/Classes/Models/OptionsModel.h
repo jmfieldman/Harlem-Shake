@@ -34,8 +34,20 @@ SINGLETON_INTR(OptionsModel);
 + (BOOL) flashBlink;
 + (void) setFlashBlink:(BOOL)flashBlink;
 
+/* camera settings */
+
++ (BOOL) preferBackCamera;
++ (void) setPreferBackCamera:(BOOL)backCamera;
+
++ (BOOL) flashOn;
++ (void) setFlashOn:(BOOL)flashOn;
+
+
 /* Device abilities */
 
 + (BOOL) hasDeviceWithFlash;
++ (AVCaptureDevice*) frontDevice;
++ (AVCaptureDevice*) backDevice;
++ (BOOL) hasFrontAndBackVideo;
 
 @end

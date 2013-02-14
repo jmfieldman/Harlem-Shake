@@ -64,6 +64,31 @@ SINGLETON_IMPL(OptionsModel);
 	[[PersistentDictionary dictionaryWithName:@"options"] saveToFile];
 }
 
+/* Camera settings */
+
++ (BOOL) preferBackCamera {
+	NSNumber *preferBackCameraNum = [[PersistentDictionary dictionaryWithName:@"options"].dictionary objectForKey:@"preferBackCamera"];
+	if (!preferBackCameraNum) return YES;
+	return [preferBackCameraNum boolValue];
+}
+
++ (void) setPreferBackCamera:(BOOL)backCamera {
+	[[PersistentDictionary dictionaryWithName:@"options"].dictionary setObject:[NSNumber numberWithBool:backCamera] forKey:@"preferBackCamera"];
+	[[PersistentDictionary dictionaryWithName:@"options"] saveToFile];
+}
+
++ (BOOL) flashOn {
+	NSNumber *flashOnNum = [[PersistentDictionary dictionaryWithName:@"options"].dictionary objectForKey:@"flashOn"];
+	if (!flashOnNum) return NO;
+	return [flashOnNum boolValue];
+}
+
++ (void) setFlashOn:(BOOL)flashOn {
+	[[PersistentDictionary dictionaryWithName:@"options"].dictionary setObject:[NSNumber numberWithBool:flashOn] forKey:@"flashOn"];
+	[[PersistentDictionary dictionaryWithName:@"options"] saveToFile];
+}
+
+
 
 /* Device abilities */
 
@@ -73,6 +98,26 @@ SINGLETON_IMPL(OptionsModel);
 		if ([device hasTorch]) return YES;
 	}
 	return NO;
+}
+
++ (AVCaptureDevice*) frontDevice {
+	NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+	for (AVCaptureDevice *device in devices) {
+		if ([device position] == AVCaptureDevicePositionFront) return device;
+	}
+	return nil;
+}
+
++ (AVCaptureDevice*) backDevice {
+	NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+	for (AVCaptureDevice *device in devices) {
+		if ([device position] == AVCaptureDevicePositionBack) return device;
+	}
+	return nil;
+}
+
++ (BOOL) hasFrontAndBackVideo {
+	return ([OptionsModel frontDevice] && [OptionsModel backDevice]);
 }
 
 

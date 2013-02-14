@@ -25,7 +25,13 @@
 			case QUAL_HIGH: _captureSession.sessionPreset = AVCaptureSessionPresetHigh;   break;
 		}
 		
-		/* Create input to capture session */
+		/* Add viewing layer */
+		AVCaptureVideoPreviewLayer *captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_captureSession];
+		captureVideoPreviewLayer.frame = self.view.frame;
+		//[self.view.layer addSublayer:captureVideoPreviewLayer];
+		
+		/* Set the device for input into capture session */
+		//[self configInputDeviceBasedOnSettings];
 		
 		/* Cancel */
 		_cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -60,5 +66,41 @@
 	[self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
+
+/* Camera settings */
+
+- (void) configInputDeviceBasedOnSettings {
+	
+	if ([OptionsModel hasFrontAndBackVideo]) {
+		/* Need to use option */
+		BOOL preferBack = [OptionsModel preferBackCamera];
+
+		if (preferBack) {
+			_captureDevice = [OptionsModel backDevice];
+		} else {
+			_captureDevice = [OptionsModel frontDevice];
+		}
+		
+	} else {
+		/* No choice */
+		AVCaptureDevice *dev = [OptionsModel backDevice];
+		if (dev) {
+			_captureDevice = dev;
+		} else {
+			_captureDevice = [OptionsModel frontDevice];
+		}
+	}
+	
+	/* Create capture device input */
+	_captureDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:_captureDevice error:nil];
+	
+	/* Remove existing inputs */
+	if ([_captureSession.inputs count]) {
+		[_captureSession removeInput:[_captureSession.inputs objectAtIndex:0]];
+	}
+	
+	/* Now set it as the session input */
+	[_captureSession addInput:_captureDeviceInput];
+}
 
 @end
