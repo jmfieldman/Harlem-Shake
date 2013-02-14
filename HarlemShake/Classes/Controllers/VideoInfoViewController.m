@@ -187,9 +187,7 @@
 }
 
 - (void) clipControlPressedRecord:(BOOL)before {
-	ClipRecorderViewController *crvc = [[ClipRecorderViewController alloc] init];
-	crvc.videoId = _videoId;
-	crvc.openedForBeforeClip = before;
+	ClipRecorderViewController *crvc = [[ClipRecorderViewController alloc] initWithVideo:_videoId before:before];
 	[self presentViewController:crvc animated:YES completion:nil];
 }
 

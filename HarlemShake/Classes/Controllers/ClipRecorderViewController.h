@@ -26,6 +26,14 @@
 	UILabel            *_camLabel;
 	UILabel            *_flashLabel;
 	
+	UIButton           *_recordButton;
+	UILabel            *_timerSetupLabel;
+	UILabel            *_audioOverlayLabel;
+	UILabel            *_contRecordLabel;
+	UILabel            *_flashPulseLabel;
+	
+	BOOL                _shouldBlink;
+	
 	/* Recording */
 	AVCaptureSession     *_captureSession;
 	AVCaptureDevice      *_captureDevice;
@@ -38,6 +46,8 @@
 
 @property (nonatomic, strong) VideoID_t videoId;
 @property (nonatomic, assign) BOOL openedForBeforeClip;
+
+- (id) initWithVideo:(VideoID_t)videoId before:(BOOL)before;
 
 @end
 

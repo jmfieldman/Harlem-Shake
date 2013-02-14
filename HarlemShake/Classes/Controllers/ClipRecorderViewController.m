@@ -10,8 +10,11 @@
 
 @implementation ClipRecorderViewController
 
-- (id) init {
+- (id) initWithVideo:(VideoID_t)videoId before:(BOOL)before; {
 	if ((self = [super init])) {
+		
+		self.videoId = videoId;
+		self.openedForBeforeClip = before;
 		
 		/* Initialize the main view */
 		self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -63,6 +66,7 @@
 		_cancelButton.layer.borderWidth = 4;
 		_cancelButton.layer.borderColor	= [UIColor blackColor].CGColor;
 		_cancelButton.alpha = 0.65;
+		[[ButtonEffectsExpander sharedInstance] attachToControl:_cancelButton];
 		[_topLContainer addSubview:_cancelButton];
 				
 		/* Camera controls */
@@ -116,6 +120,80 @@
 		[_topRContainer addSubview:_flashChooser];
 		[_topRContainer addSubview:_flashLabel];
 		
+		
+		/* Main info stuff */
+		_recordButton = [UIButton buttonWithType:UIButtonTypeCustom];
+		_recordButton.frame = CGRectMake(50,30,250,50);
+		_recordButton.center = CGPointMake(_interfaceContainer.frame.size.width/2, _interfaceContainer.frame.size.height/2 + 40);
+		_recordButton.backgroundColor = [UIColor redColor];
+		[_recordButton setTitle:@"Tap Here To Begin Recording!" forState:UIControlStateNormal];
+		[_recordButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+		[_recordButton addTarget:self action:@selector(pressedRecord:) forControlEvents:UIControlEventTouchUpInside];
+		_recordButton.tintColor = [UIColor whiteColor];
+		_recordButton.titleLabel.font = [UIFont boldSystemFontOfSize:15];
+		_recordButton.layer.cornerRadius = 16;
+		_recordButton.layer.borderWidth = 4;
+		_recordButton.layer.borderColor	= [UIColor whiteColor].CGColor;
+		_recordButton.alpha = 0.65;
+		[[ButtonEffectsExpander sharedInstance] attachToControl:_recordButton];
+		[_interfaceContainer addSubview:_recordButton];
+		
+		
+		_timerSetupLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+		_timerSetupLabel.center = CGPointMake(_recordButton.center.x, _recordButton.center.y + 35);
+		_timerSetupLabel.textColor = [UIColor whiteColor];
+		_timerSetupLabel.font = [UIFont boldSystemFontOfSize:12];
+		_timerSetupLabel.backgroundColor = [UIColor clearColor];
+		_timerSetupLabel.alpha = 0.65;
+		_timerSetupLabel.textAlignment = NSTextAlignmentCenter;
+		if ([OptionsModel timerDelay]) {
+			_timerSetupLabel.text = [NSString stringWithFormat:@"Recording timer set to %d seconds", [OptionsModel timerDelay]];
+		} else {
+			_timerSetupLabel.text = @"Recording will begin immediately (no timer)";
+		}
+		[_interfaceContainer addSubview:_timerSetupLabel];
+		
+		_contRecordLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+		_contRecordLabel.center = CGPointMake(_timerSetupLabel.center.x, _timerSetupLabel.center.y + 20);
+		_contRecordLabel.textColor = [UIColor whiteColor];
+		_contRecordLabel.font = [UIFont boldSystemFontOfSize:12];
+		_contRecordLabel.backgroundColor = [UIColor clearColor];
+		_contRecordLabel.alpha = 0.65;
+		_contRecordLabel.textAlignment = NSTextAlignmentCenter;
+		if (!_openedForBeforeClip) {
+			_contRecordLabel.text = @"Recording the \"After Drop\" clip only";
+		} else {
+			if ([OptionsModel recordBoth]) {
+				_contRecordLabel.text = [NSString stringWithFormat:@"Also recording the \"After Drop\" clip after %d seconds", [OptionsModel recordBoth]];
+			} else {
+				_contRecordLabel.text = @"Recording the \"Before Drop\" clip only";
+			}
+		}
+		[_interfaceContainer addSubview:_contRecordLabel];
+		
+		_audioOverlayLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+		_audioOverlayLabel.center = CGPointMake(_contRecordLabel.center.x, _contRecordLabel.center.y + 20);
+		_audioOverlayLabel.textColor = [UIColor whiteColor];
+		_audioOverlayLabel.font = [UIFont boldSystemFontOfSize:12];
+		_audioOverlayLabel.backgroundColor = [UIColor clearColor];
+		_audioOverlayLabel.alpha = 0.65;
+		_audioOverlayLabel.textAlignment = NSTextAlignmentCenter;
+		_audioOverlayLabel.text = [NSString stringWithFormat:@"The app will%@ play the corresponding audio clip", [OptionsModel playSong] ? @"" : @" NOT"];
+		[_interfaceContainer addSubview:_audioOverlayLabel];
+		
+		_flashPulseLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+		_flashPulseLabel.center = CGPointMake(_audioOverlayLabel.center.x, _audioOverlayLabel.center.y + 20);
+		_flashPulseLabel.textColor = [UIColor whiteColor];
+		_flashPulseLabel.font = [UIFont boldSystemFontOfSize:12];
+		_flashPulseLabel.backgroundColor = [UIColor clearColor];
+		_flashPulseLabel.alpha = 0.65;
+		_flashPulseLabel.textAlignment = NSTextAlignmentCenter;
+		_flashPulseLabel.text = [NSString stringWithFormat:@"Flash will%@ blink for last three seconds", [OptionsModel flashBlink] ? @"" : @" NOT"];
+		_shouldBlink = [OptionsModel timerDelay] || ([OptionsModel recordBoth] && _openedForBeforeClip);
+		if (!_shouldBlink) _flashPulseLabel.hidden = YES;
+		[_interfaceContainer addSubview:_flashPulseLabel];
+		
+		
 		/* Set the device for input into capture session */
 		[self configInputDeviceBasedOnSettings];
 		
@@ -128,14 +206,11 @@
 	return self;
 }
 
-- (void) viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-	
+- (void) enableAccellerometer {
 	[_motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue currentQueue]
 										 withHandler:^(CMAccelerometerData *accData, NSError *error) {
-
-											 /* 
+											 
+											 /*
 											  port: y = -1
 											  upside down port: y = 1
 											  home button right: x = -1
@@ -155,7 +230,14 @@
 											 [self positionContainerForOrientation:curOrientation];
 											 
 											 
-	}];
+										 }];
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+	
+	[self enableAccellerometer];
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
@@ -179,6 +261,10 @@
 - (void) toggledFlash:(id)sender {
 	[OptionsModel setFlashOn:(_flashChooser.selectedSegmentIndex == 1) ? YES : NO];
 	[self configInputDeviceBasedOnSettings];
+}
+
+- (void) pressedRecord:(id)sender {
+	
 }
 
 
@@ -285,10 +371,12 @@
 	if (_captureDevice.hasTorch) {
 		_flashLabel.alpha = 1;
 		_flashChooser.alpha = 0.65;
+		_flashPulseLabel.alpha = 0.65;
 		_flashChooser.userInteractionEnabled = YES;
 	} else {
 		_flashLabel.alpha = 0;
 		_flashChooser.alpha = 0;
+		_flashPulseLabel.alpha = 0;
 		_flashChooser.userInteractionEnabled = NO;
 	}
 	[UIView commitAnimations];
