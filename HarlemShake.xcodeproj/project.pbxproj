@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		350D6DFE16CCBE4A003E91A2 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 350D6DFD16CCBE4A003E91A2 /* CoreMotion.framework */; };
 		35BF260B16CC8F920089F647 /* noclip.png in Resources */ = {isa = PBXBuildFile; fileRef = 35E3DDE916CC7D87001AE3A4 /* noclip.png */; };
 		35BF260C16CC8F920089F647 /* noclip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 35E3DDEA16CC7D87001AE3A4 /* noclip@2x.png */; };
 		35BF260D16CC8F920089F647 /* record.png in Resources */ = {isa = PBXBuildFile; fileRef = 35E3DDEB16CC7D87001AE3A4 /* record.png */; };
@@ -46,6 +47,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		350D6DFD16CCBE4A003E91A2 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		35E3DDC716CC7C9A001AE3A4 /* HarlemShake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HarlemShake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35E3DDCA16CC7C9A001AE3A4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		35E3DDCC16CC7C9A001AE3A4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -108,6 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				350D6DFE16CCBE4A003E91A2 /* CoreMotion.framework in Frameworks */,
 				35E3DE2E16CC7DB6001AE3A4 /* Accelerate.framework in Frameworks */,
 				35E3DE2F16CC7DB6001AE3A4 /* AVFoundation.framework in Frameworks */,
 				35E3DE3016CC7DB6001AE3A4 /* CoreMedia.framework in Frameworks */,
@@ -143,6 +146,7 @@
 		35E3DDC916CC7C9A001AE3A4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				350D6DFD16CCBE4A003E91A2 /* CoreMotion.framework */,
 				35E3DE2816CC7DB6001AE3A4 /* Accelerate.framework */,
 				35E3DE2916CC7DB6001AE3A4 /* AVFoundation.framework */,
 				35E3DE2A16CC7DB6001AE3A4 /* CoreMedia.framework */,
