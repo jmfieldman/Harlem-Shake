@@ -16,6 +16,33 @@
 		35E3DDDD16CC7C9A001AE3A4 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 35E3DDDC16CC7C9A001AE3A4 /* Default.png */; };
 		35E3DDDF16CC7C9A001AE3A4 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 35E3DDDE16CC7C9A001AE3A4 /* Default@2x.png */; };
 		35E3DDE116CC7C9A001AE3A4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 35E3DDE016CC7C9A001AE3A4 /* Default-568h@2x.png */; };
+		35E3DE1316CC7D87001AE3A4 /* noclip.png in Resources */ = {isa = PBXBuildFile; fileRef = 35E3DDE916CC7D87001AE3A4 /* noclip.png */; };
+		35E3DE1416CC7D87001AE3A4 /* noclip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 35E3DDEA16CC7D87001AE3A4 /* noclip@2x.png */; };
+		35E3DE1516CC7D87001AE3A4 /* record.png in Resources */ = {isa = PBXBuildFile; fileRef = 35E3DDEB16CC7D87001AE3A4 /* record.png */; };
+		35E3DE1616CC7D87001AE3A4 /* record@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 35E3DDEC16CC7D87001AE3A4 /* record@2x.png */; };
+		35E3DE1716CC7D87001AE3A4 /* ClipRecorderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E3DDF016CC7D87001AE3A4 /* ClipRecorderViewController.m */; };
+		35E3DE1816CC7D87001AE3A4 /* RecordingOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E3DDF216CC7D87001AE3A4 /* RecordingOptionsViewController.m */; };
+		35E3DE1916CC7D87001AE3A4 /* TestCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E3DDF416CC7D87001AE3A4 /* TestCameraViewController.m */; };
+		35E3DE1A16CC7D87001AE3A4 /* TextEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E3DDF616CC7D87001AE3A4 /* TextEditViewController.m */; };
+		35E3DE1B16CC7D87001AE3A4 /* VideoInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E3DDF816CC7D87001AE3A4 /* VideoInfoViewController.m */; };
+		35E3DE1C16CC7D87001AE3A4 /* VideoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E3DDFA16CC7D87001AE3A4 /* VideoListViewController.m */; };
+		35E3DE1D16CC7D87001AE3A4 /* EXDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E3DDFD16CC7D87001AE3A4 /* EXDebug.m */; };
+		35E3DE1E16CC7D87001AE3A4 /* EXRemoteLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E3DDFF16CC7D87001AE3A4 /* EXRemoteLog.m */; };
+		35E3DE1F16CC7D87001AE3A4 /* PersistentDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E3DE0116CC7D87001AE3A4 /* PersistentDictionary.m */; };
+		35E3DE2016CC7D87001AE3A4 /* SingletonHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E3DE0316CC7D87001AE3A4 /* SingletonHelper.m */; };
+		35E3DE2116CC7D87001AE3A4 /* OptionsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E3DE0616CC7D87001AE3A4 /* OptionsModel.m */; };
+		35E3DE2216CC7D87001AE3A4 /* VideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E3DE0816CC7D87001AE3A4 /* VideoModel.m */; };
+		35E3DE2316CC7D87001AE3A4 /* ClipControlTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E3DE0B16CC7D87001AE3A4 /* ClipControlTableViewCell.m */; };
+		35E3DE2416CC7D87001AE3A4 /* UITableViewCellEx.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E3DE0D16CC7D87001AE3A4 /* UITableViewCellEx.m */; };
+		35E3DE2516CC7D87001AE3A4 /* VideoListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E3DE0F16CC7D87001AE3A4 /* VideoListTableViewCell.m */; };
+		35E3DE2616CC7D87001AE3A4 /* part1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 35E3DE1116CC7D87001AE3A4 /* part1.m4a */; };
+		35E3DE2716CC7D87001AE3A4 /* part2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 35E3DE1216CC7D87001AE3A4 /* part2.m4a */; };
+		35E3DE2E16CC7DB6001AE3A4 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E3DE2816CC7DB6001AE3A4 /* Accelerate.framework */; };
+		35E3DE2F16CC7DB6001AE3A4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E3DE2916CC7DB6001AE3A4 /* AVFoundation.framework */; };
+		35E3DE3016CC7DB6001AE3A4 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E3DE2A16CC7DB6001AE3A4 /* CoreMedia.framework */; };
+		35E3DE3116CC7DB6001AE3A4 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E3DE2B16CC7DB6001AE3A4 /* MediaPlayer.framework */; };
+		35E3DE3216CC7DB6001AE3A4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E3DE2C16CC7DB6001AE3A4 /* QuartzCore.framework */; };
+		35E3DE3316CC7DB6001AE3A4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E3DE2D16CC7DB6001AE3A4 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +59,48 @@
 		35E3DDDC16CC7C9A001AE3A4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		35E3DDDE16CC7C9A001AE3A4 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		35E3DDE016CC7C9A001AE3A4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		35E3DDE916CC7D87001AE3A4 /* noclip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noclip.png; sourceTree = "<group>"; };
+		35E3DDEA16CC7D87001AE3A4 /* noclip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noclip@2x.png"; sourceTree = "<group>"; };
+		35E3DDEB16CC7D87001AE3A4 /* record.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = record.png; sourceTree = "<group>"; };
+		35E3DDEC16CC7D87001AE3A4 /* record@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "record@2x.png"; sourceTree = "<group>"; };
+		35E3DDEF16CC7D87001AE3A4 /* ClipRecorderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClipRecorderViewController.h; sourceTree = "<group>"; };
+		35E3DDF016CC7D87001AE3A4 /* ClipRecorderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClipRecorderViewController.m; sourceTree = "<group>"; };
+		35E3DDF116CC7D87001AE3A4 /* RecordingOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingOptionsViewController.h; sourceTree = "<group>"; };
+		35E3DDF216CC7D87001AE3A4 /* RecordingOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordingOptionsViewController.m; sourceTree = "<group>"; };
+		35E3DDF316CC7D87001AE3A4 /* TestCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestCameraViewController.h; sourceTree = "<group>"; };
+		35E3DDF416CC7D87001AE3A4 /* TestCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestCameraViewController.m; sourceTree = "<group>"; };
+		35E3DDF516CC7D87001AE3A4 /* TextEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextEditViewController.h; sourceTree = "<group>"; };
+		35E3DDF616CC7D87001AE3A4 /* TextEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextEditViewController.m; sourceTree = "<group>"; };
+		35E3DDF716CC7D87001AE3A4 /* VideoInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoInfoViewController.h; sourceTree = "<group>"; };
+		35E3DDF816CC7D87001AE3A4 /* VideoInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoInfoViewController.m; sourceTree = "<group>"; };
+		35E3DDF916CC7D87001AE3A4 /* VideoListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoListViewController.h; sourceTree = "<group>"; };
+		35E3DDFA16CC7D87001AE3A4 /* VideoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoListViewController.m; sourceTree = "<group>"; };
+		35E3DDFC16CC7D87001AE3A4 /* EXDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXDebug.h; sourceTree = "<group>"; };
+		35E3DDFD16CC7D87001AE3A4 /* EXDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXDebug.m; sourceTree = "<group>"; };
+		35E3DDFE16CC7D87001AE3A4 /* EXRemoteLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXRemoteLog.h; sourceTree = "<group>"; };
+		35E3DDFF16CC7D87001AE3A4 /* EXRemoteLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXRemoteLog.m; sourceTree = "<group>"; };
+		35E3DE0016CC7D87001AE3A4 /* PersistentDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersistentDictionary.h; sourceTree = "<group>"; };
+		35E3DE0116CC7D87001AE3A4 /* PersistentDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersistentDictionary.m; sourceTree = "<group>"; };
+		35E3DE0216CC7D87001AE3A4 /* SingletonHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingletonHelper.h; sourceTree = "<group>"; };
+		35E3DE0316CC7D87001AE3A4 /* SingletonHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingletonHelper.m; sourceTree = "<group>"; };
+		35E3DE0516CC7D87001AE3A4 /* OptionsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsModel.h; sourceTree = "<group>"; };
+		35E3DE0616CC7D87001AE3A4 /* OptionsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsModel.m; sourceTree = "<group>"; };
+		35E3DE0716CC7D87001AE3A4 /* VideoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoModel.h; sourceTree = "<group>"; };
+		35E3DE0816CC7D87001AE3A4 /* VideoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoModel.m; sourceTree = "<group>"; };
+		35E3DE0A16CC7D87001AE3A4 /* ClipControlTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClipControlTableViewCell.h; sourceTree = "<group>"; };
+		35E3DE0B16CC7D87001AE3A4 /* ClipControlTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClipControlTableViewCell.m; sourceTree = "<group>"; };
+		35E3DE0C16CC7D87001AE3A4 /* UITableViewCellEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITableViewCellEx.h; sourceTree = "<group>"; };
+		35E3DE0D16CC7D87001AE3A4 /* UITableViewCellEx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITableViewCellEx.m; sourceTree = "<group>"; };
+		35E3DE0E16CC7D87001AE3A4 /* VideoListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoListTableViewCell.h; sourceTree = "<group>"; };
+		35E3DE0F16CC7D87001AE3A4 /* VideoListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoListTableViewCell.m; sourceTree = "<group>"; };
+		35E3DE1116CC7D87001AE3A4 /* part1.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = part1.m4a; sourceTree = "<group>"; };
+		35E3DE1216CC7D87001AE3A4 /* part2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = part2.m4a; sourceTree = "<group>"; };
+		35E3DE2816CC7DB6001AE3A4 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		35E3DE2916CC7DB6001AE3A4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		35E3DE2A16CC7DB6001AE3A4 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		35E3DE2B16CC7DB6001AE3A4 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		35E3DE2C16CC7DB6001AE3A4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		35E3DE2D16CC7DB6001AE3A4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +108,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35E3DE2E16CC7DB6001AE3A4 /* Accelerate.framework in Frameworks */,
+				35E3DE2F16CC7DB6001AE3A4 /* AVFoundation.framework in Frameworks */,
+				35E3DE3016CC7DB6001AE3A4 /* CoreMedia.framework in Frameworks */,
+				35E3DE3116CC7DB6001AE3A4 /* MediaPlayer.framework in Frameworks */,
+				35E3DE3216CC7DB6001AE3A4 /* QuartzCore.framework in Frameworks */,
+				35E3DE3316CC7DB6001AE3A4 /* SystemConfiguration.framework in Frameworks */,
 				35E3DDCB16CC7C9A001AE3A4 /* UIKit.framework in Frameworks */,
 				35E3DDCD16CC7C9A001AE3A4 /* Foundation.framework in Frameworks */,
 				35E3DDCF16CC7C9A001AE3A4 /* CoreGraphics.framework in Frameworks */,
@@ -68,6 +143,12 @@
 		35E3DDC916CC7C9A001AE3A4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				35E3DE2816CC7DB6001AE3A4 /* Accelerate.framework */,
+				35E3DE2916CC7DB6001AE3A4 /* AVFoundation.framework */,
+				35E3DE2A16CC7DB6001AE3A4 /* CoreMedia.framework */,
+				35E3DE2B16CC7DB6001AE3A4 /* MediaPlayer.framework */,
+				35E3DE2C16CC7DB6001AE3A4 /* QuartzCore.framework */,
+				35E3DE2D16CC7DB6001AE3A4 /* SystemConfiguration.framework */,
 				35E3DDCA16CC7C9A001AE3A4 /* UIKit.framework */,
 				35E3DDCC16CC7C9A001AE3A4 /* Foundation.framework */,
 				35E3DDCE16CC7C9A001AE3A4 /* CoreGraphics.framework */,
@@ -78,6 +159,7 @@
 		35E3DDD016CC7C9A001AE3A4 /* HarlemShake */ = {
 			isa = PBXGroup;
 			children = (
+				35E3DDED16CC7D87001AE3A4 /* Classes */,
 				35E3DDD916CC7C9A001AE3A4 /* AppDelegate.h */,
 				35E3DDDA16CC7C9A001AE3A4 /* AppDelegate.m */,
 				35E3DDD116CC7C9A001AE3A4 /* Supporting Files */,
@@ -88,6 +170,8 @@
 		35E3DDD116CC7C9A001AE3A4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				35E3DDE716CC7D87001AE3A4 /* Images */,
+				35E3DE1016CC7D87001AE3A4 /* Audio */,
 				35E3DDD216CC7C9A001AE3A4 /* HarlemShake-Info.plist */,
 				35E3DDD316CC7C9A001AE3A4 /* InfoPlist.strings */,
 				35E3DDD616CC7C9A001AE3A4 /* main.m */,
@@ -97,6 +181,103 @@
 				35E3DDE016CC7C9A001AE3A4 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		35E3DDE716CC7D87001AE3A4 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				35E3DDE816CC7D87001AE3A4 /* UI */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		35E3DDE816CC7D87001AE3A4 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				35E3DDE916CC7D87001AE3A4 /* noclip.png */,
+				35E3DDEA16CC7D87001AE3A4 /* noclip@2x.png */,
+				35E3DDEB16CC7D87001AE3A4 /* record.png */,
+				35E3DDEC16CC7D87001AE3A4 /* record@2x.png */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		35E3DDED16CC7D87001AE3A4 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				35E3DDEE16CC7D87001AE3A4 /* Controllers */,
+				35E3DDFB16CC7D87001AE3A4 /* Helpers */,
+				35E3DE0416CC7D87001AE3A4 /* Models */,
+				35E3DE0916CC7D87001AE3A4 /* Views */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		35E3DDEE16CC7D87001AE3A4 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				35E3DDEF16CC7D87001AE3A4 /* ClipRecorderViewController.h */,
+				35E3DDF016CC7D87001AE3A4 /* ClipRecorderViewController.m */,
+				35E3DDF116CC7D87001AE3A4 /* RecordingOptionsViewController.h */,
+				35E3DDF216CC7D87001AE3A4 /* RecordingOptionsViewController.m */,
+				35E3DDF316CC7D87001AE3A4 /* TestCameraViewController.h */,
+				35E3DDF416CC7D87001AE3A4 /* TestCameraViewController.m */,
+				35E3DDF516CC7D87001AE3A4 /* TextEditViewController.h */,
+				35E3DDF616CC7D87001AE3A4 /* TextEditViewController.m */,
+				35E3DDF716CC7D87001AE3A4 /* VideoInfoViewController.h */,
+				35E3DDF816CC7D87001AE3A4 /* VideoInfoViewController.m */,
+				35E3DDF916CC7D87001AE3A4 /* VideoListViewController.h */,
+				35E3DDFA16CC7D87001AE3A4 /* VideoListViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		35E3DDFB16CC7D87001AE3A4 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				35E3DDFC16CC7D87001AE3A4 /* EXDebug.h */,
+				35E3DDFD16CC7D87001AE3A4 /* EXDebug.m */,
+				35E3DDFE16CC7D87001AE3A4 /* EXRemoteLog.h */,
+				35E3DDFF16CC7D87001AE3A4 /* EXRemoteLog.m */,
+				35E3DE0016CC7D87001AE3A4 /* PersistentDictionary.h */,
+				35E3DE0116CC7D87001AE3A4 /* PersistentDictionary.m */,
+				35E3DE0216CC7D87001AE3A4 /* SingletonHelper.h */,
+				35E3DE0316CC7D87001AE3A4 /* SingletonHelper.m */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		35E3DE0416CC7D87001AE3A4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				35E3DE0516CC7D87001AE3A4 /* OptionsModel.h */,
+				35E3DE0616CC7D87001AE3A4 /* OptionsModel.m */,
+				35E3DE0716CC7D87001AE3A4 /* VideoModel.h */,
+				35E3DE0816CC7D87001AE3A4 /* VideoModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		35E3DE0916CC7D87001AE3A4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				35E3DE0A16CC7D87001AE3A4 /* ClipControlTableViewCell.h */,
+				35E3DE0B16CC7D87001AE3A4 /* ClipControlTableViewCell.m */,
+				35E3DE0C16CC7D87001AE3A4 /* UITableViewCellEx.h */,
+				35E3DE0D16CC7D87001AE3A4 /* UITableViewCellEx.m */,
+				35E3DE0E16CC7D87001AE3A4 /* VideoListTableViewCell.h */,
+				35E3DE0F16CC7D87001AE3A4 /* VideoListTableViewCell.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		35E3DE1016CC7D87001AE3A4 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				35E3DE1116CC7D87001AE3A4 /* part1.m4a */,
+				35E3DE1216CC7D87001AE3A4 /* part2.m4a */,
+			);
+			path = Audio;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,6 +335,12 @@
 				35E3DDDD16CC7C9A001AE3A4 /* Default.png in Resources */,
 				35E3DDDF16CC7C9A001AE3A4 /* Default@2x.png in Resources */,
 				35E3DDE116CC7C9A001AE3A4 /* Default-568h@2x.png in Resources */,
+				35E3DE1316CC7D87001AE3A4 /* noclip.png in Resources */,
+				35E3DE1416CC7D87001AE3A4 /* noclip@2x.png in Resources */,
+				35E3DE1516CC7D87001AE3A4 /* record.png in Resources */,
+				35E3DE1616CC7D87001AE3A4 /* record@2x.png in Resources */,
+				35E3DE2616CC7D87001AE3A4 /* part1.m4a in Resources */,
+				35E3DE2716CC7D87001AE3A4 /* part2.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,6 +353,21 @@
 			files = (
 				35E3DDD716CC7C9A001AE3A4 /* main.m in Sources */,
 				35E3DDDB16CC7C9A001AE3A4 /* AppDelegate.m in Sources */,
+				35E3DE1716CC7D87001AE3A4 /* ClipRecorderViewController.m in Sources */,
+				35E3DE1816CC7D87001AE3A4 /* RecordingOptionsViewController.m in Sources */,
+				35E3DE1916CC7D87001AE3A4 /* TestCameraViewController.m in Sources */,
+				35E3DE1A16CC7D87001AE3A4 /* TextEditViewController.m in Sources */,
+				35E3DE1B16CC7D87001AE3A4 /* VideoInfoViewController.m in Sources */,
+				35E3DE1C16CC7D87001AE3A4 /* VideoListViewController.m in Sources */,
+				35E3DE1D16CC7D87001AE3A4 /* EXDebug.m in Sources */,
+				35E3DE1E16CC7D87001AE3A4 /* EXRemoteLog.m in Sources */,
+				35E3DE1F16CC7D87001AE3A4 /* PersistentDictionary.m in Sources */,
+				35E3DE2016CC7D87001AE3A4 /* SingletonHelper.m in Sources */,
+				35E3DE2116CC7D87001AE3A4 /* OptionsModel.m in Sources */,
+				35E3DE2216CC7D87001AE3A4 /* VideoModel.m in Sources */,
+				35E3DE2316CC7D87001AE3A4 /* ClipControlTableViewCell.m in Sources */,
+				35E3DE2416CC7D87001AE3A4 /* UITableViewCellEx.m in Sources */,
+				35E3DE2516CC7D87001AE3A4 /* VideoListTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,6 +412,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-DEXDEBUGENABLED";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -280,6 +483,7 @@
 				35E3DDE616CC7C9A001AE3A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
