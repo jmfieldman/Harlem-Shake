@@ -9,6 +9,7 @@
 #import "VideoInfoViewController.h"
 #import "TextEditViewController.h"
 #import "RecordingOptionsViewController.h"
+#import "ClipRecorderViewController.h"
 
 #import "UITableViewCellEx.h"
 #import "ClipControlTableViewCell.h"
@@ -186,7 +187,10 @@
 }
 
 - (void) clipControlPressedRecord:(BOOL)before {
-	
+	ClipRecorderViewController *crvc = [[ClipRecorderViewController alloc] init];
+	crvc.videoId = _videoId;
+	crvc.openedForBeforeClip = before;
+	[self presentViewController:crvc animated:YES completion:nil];
 }
 
 

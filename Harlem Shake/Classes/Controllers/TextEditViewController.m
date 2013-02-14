@@ -14,15 +14,15 @@
 	if ((self = [super init])) {
 		/* Initialize the main view */
 		self.view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 300)];
-		self.view.backgroundColor = [UIColor clearColor];
+		self.view.backgroundColor = [UIColor whiteColor];
 		self.view.autoresizesSubviews = YES;
 		self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 		
 		/* Text view */
-		_textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, 300-216)];
+		_textView = [[UITextView alloc] initWithFrame:CGRectMake(10, 0, 300, 300-216)];
 		_textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-		_textView.backgroundColor = [UIColor yellowColor];
-		_textView.contentInset = UIEdgeInsetsMake(10, 10, 10, 10);
+		_textView.backgroundColor = [UIColor clearColor];
+		_textView.contentInset = UIEdgeInsetsMake(10, 0, 10, 0);
 		[self.view addSubview:_textView];
 				
 	}

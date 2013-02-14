@@ -1,0 +1,22 @@
+//
+//  ClipRecorderViewController.h
+//  Harlem Shake
+//
+//  Created by Jason Fieldman on 2/13/13.
+//  Copyright (c) 2013 Jason Fieldman. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface ClipRecorderViewController : UIViewController {
+	UIButton *_cancelButton;
+	
+	/* Recording */
+	AVCaptureSession *_captureSession;
+}
+
+@property (nonatomic, strong) VideoID_t videoId;
+@property (nonatomic, assign) BOOL openedForBeforeClip;
+
+@end
+

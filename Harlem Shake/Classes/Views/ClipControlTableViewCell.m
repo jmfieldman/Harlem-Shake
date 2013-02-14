@@ -45,6 +45,8 @@
 		
 		/* Record buttons */
 		_befRecord = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+		_befRecord.tag = 1;
+		[_befRecord addTarget:self action:@selector(pressedRecord:) forControlEvents:UIControlEventTouchUpInside];
 		[_befRecord setTitle:@"Record" forState:UIControlStateNormal];
 		[_befRecord setTitleColor:[UIColor colorWithRed:0.75 green:0 blue:0 alpha:1] forState:UIControlStateNormal];
 		[_befRecord setImage:[UIImage imageNamed:@"record"] forState:UIControlStateNormal];
@@ -52,6 +54,8 @@
 		[self.contentView addSubview:_befRecord];
 		
 		_aftRecord = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+		_aftRecord.tag = 2;
+		[_aftRecord addTarget:self action:@selector(pressedRecord:) forControlEvents:UIControlEventTouchUpInside];
 		[_aftRecord setTitle:@"Record" forState:UIControlStateNormal];
 		[_aftRecord setTitleColor:[UIColor colorWithRed:0.75 green:0 blue:0 alpha:1] forState:UIControlStateNormal];
 		[_aftRecord setImage:[UIImage imageNamed:@"record"] forState:UIControlStateNormal];
@@ -63,6 +67,16 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
 	[super setSelected:selected animated:animated];
+}
+
+- (void) pressedRecord:(id)sender {
+	int tag = ((UIView*)sender).tag;
+	
+	if (tag == 1) {
+		[_controlDelegate clipControlPressedRecord:YES];
+	} else if (tag == 2) {
+		[_controlDelegate clipControlPressedRecord:NO];
+	}
 }
 
 - (void) setVideoId:(VideoID_t)videoId {
