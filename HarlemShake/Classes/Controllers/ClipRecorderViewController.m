@@ -15,7 +15,7 @@
 		
 		/* Initialize the main view */
 		self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-		self.view.backgroundColor = [UIColor yellowColor];
+		self.view.backgroundColor = [UIColor clearColor];
 		
 		/* Create capture session */
 		_captureSession = [[AVCaptureSession alloc] init];
@@ -24,15 +24,16 @@
 			case QUAL_MED:  _captureSession.sessionPreset = AVCaptureSessionPresetMedium; break;
 			case QUAL_HIGH: _captureSession.sessionPreset = AVCaptureSessionPresetHigh;   break;
 		}
-		
+						
+		/* Set the device for input into capture session */
+		[self configInputDeviceBasedOnSettings];
+				
 		/* Add viewing layer */
 		AVCaptureVideoPreviewLayer *captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_captureSession];
-		captureVideoPreviewLayer.frame = self.view.frame;
-		//[self.view.layer addSublayer:captureVideoPreviewLayer];
-		
-		/* Set the device for input into capture session */
-		//[self configInputDeviceBasedOnSettings];
-		
+		captureVideoPreviewLayer.frame = [UIScreen mainScreen].bounds;
+		captureVideoPreviewLayer.backgroundColor = [UIColor blackColor].CGColor;
+		[self.view.layer addSublayer:captureVideoPreviewLayer];
+				 
 		/* Cancel */
 		_cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
 		_cancelButton.frame = CGRectMake(150,150,100,50);
@@ -63,6 +64,7 @@
 }
 
 - (void) pressedCancel:(id)sender {
+	[_captureSession stopRunning];
 	[self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -70,6 +72,8 @@
 /* Camera settings */
 
 - (void) configInputDeviceBasedOnSettings {
+	
+	[_captureSession stopRunning];
 	
 	if ([OptionsModel hasFrontAndBackVideo]) {
 		/* Need to use option */
@@ -91,16 +95,63 @@
 		}
 	}
 	
+	EXLog(RENDER, INFO, @"captureSession is: %@", _captureSession);
+	EXLog(RENDER, INFO, @"captureDevice is:  %@", _captureDevice);
+	
 	/* Create capture device input */
-	_captureDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:_captureDevice error:nil];
+	NSError *error = nil;
+	_captureDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:_captureDevice error:&error];
+	if (error || !_captureDeviceInput) {
+		EXLog(RENDER, ERR, @"deviceInput error: %@", error);
+	}
 	
 	/* Remove existing inputs */
 	if ([_captureSession.inputs count]) {
+		EXLog(RENDER, INFO, @"Removing existing input: %@", [_captureSession.inputs objectAtIndex:0]);
 		[_captureSession removeInput:[_captureSession.inputs objectAtIndex:0]];
 	}
 	
 	/* Now set it as the session input */
-	[_captureSession addInput:_captureDeviceInput];
+	if ([_captureSession canAddInput:_captureDeviceInput]) {
+		[_captureSession addInput:_captureDeviceInput];
+		EXLog(RENDER, INFO, @"Added device input: %@", _captureDeviceInput);
+	} else {
+		EXLog(RENDER, ERR, @"Cannot add device input");
+	}
+
+	[_captureSession startRunning];
 }
+
+#pragma mark AVCaptureFileOutputRecordingDelegate methods
+
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error {
+	NSLog(@"did finish (%@)", outputFileURL);
+	
+	BOOL recordedSuccessfully = YES;
+    if ([error code] != noErr) {
+        // A problem occurred: Find out if the recording was successful.
+        id value = [[error userInfo] objectForKey:AVErrorRecordingSuccessfullyFinishedKey];
+        if (value) {
+            recordedSuccessfully = [value boolValue];
+        }
+    } else {
+		NSLog(@"ERROR: %@", error);
+	}
+	
+	NSLog(@"recorded successfully: %d", recordedSuccessfully);
+		
+	[_captureSession stopRunning];
+}
+
+- (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections {
+	NSLog(@"did start");
+}
+
+- (void)               video: (NSString *) videoPath
+    didFinishSavingWithError: (NSError *) error
+                 contextInfo: (void *) contextInfo {
+	NSLog(@"SAVED [error: %@]", error);
+}
+
 
 @end

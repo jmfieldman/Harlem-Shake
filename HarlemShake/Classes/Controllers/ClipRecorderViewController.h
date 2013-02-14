@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ClipRecorderViewController : UIViewController {
+@interface ClipRecorderViewController : UIViewController <AVCaptureFileOutputRecordingDelegate> {
 	UIButton *_cancelButton;
 	
 	/* Recording */

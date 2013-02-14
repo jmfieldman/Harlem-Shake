@@ -42,6 +42,9 @@ SINGLETON_IMPL(VideoModel);
 				[vidDic.dictionary setObject:videoInfo forKey:@"info"];
 			}
 			[_videos setObject:videoInfo forKey:videoId];
+			
+			/* Make sure directory exists */
+			[[NSFileManager defaultManager] createDirectoryAtPath:[self dataDirectoryForVideo:videoId] withIntermediateDirectories:YES attributes:nil error:nil];
 		}
 		
 	}
@@ -83,7 +86,7 @@ SINGLETON_IMPL(VideoModel);
 	[newVideoInfo setObject:newId       forKey:@"videoId"];
 	[newVideoInfo setObject:[NSMutableString stringWithString:@"Untitled"] forKey:@"title"];
 	[newVideoInfo setObject:[NSMutableString stringWithString:@""        ] forKey:@"description"];
-	
+		
 	/* Create a persistent dictionary for the video */
 	PersistentDictionary *nvd = [self persistentDictionaryForVideo:newId];
 	[nvd.dictionary setObject:newVideoInfo forKey:@"info"];
