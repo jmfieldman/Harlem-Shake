@@ -26,7 +26,7 @@ SINGLETON_IMPL(OptionsModel);
 
 + (int) desiredQuality {
 	NSNumber *qualNum = [[PersistentDictionary dictionaryWithName:@"options"].dictionary objectForKey:@"quality"];
-	if (!qualNum) return QUAL_HIGH;
+	if (!qualNum) return QUAL_MED;
 	return [qualNum intValue];
 }
 

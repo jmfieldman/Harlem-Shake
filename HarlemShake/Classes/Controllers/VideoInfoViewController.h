@@ -20,6 +20,10 @@
 	AVAssetExportSession *_exportSession;
 	NSTimer *_exportStatusTimer;
 	BOOL _forceExistanceOfVideo;
+	
+	/* Movie player */
+	MPMoviePlayerController *_moviePlayer;
+	UILabel *_audioWarning;
 }
 
 @property (nonatomic, strong) VideoID_t videoId;

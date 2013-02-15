@@ -36,11 +36,15 @@
 		
 		/* Clip buttons */
 		_befClip = [UIButton buttonWithType:UIButtonTypeCustom];
+		_befClip.tag = 1;
 		[_befClip setImage:[UIImage imageNamed:@"noclip"] forState:UIControlStateNormal];
+		[_befClip addTarget:self action:@selector(pressedWatch:) forControlEvents:UIControlEventTouchUpInside];
 		[self.contentView addSubview:_befClip];
 		
 		_aftClip = [UIButton buttonWithType:UIButtonTypeCustom];
+		_aftClip.tag = 2;
 		[_aftClip setImage:[UIImage imageNamed:@"noclip"] forState:UIControlStateNormal];
+		[_aftClip addTarget:self action:@selector(pressedWatch:) forControlEvents:UIControlEventTouchUpInside];
 		[self.contentView addSubview:_aftClip];
 		
 		/* Record buttons */
@@ -67,6 +71,16 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
 	[super setSelected:selected animated:animated];
+}
+
+- (void) pressedWatch:(id)sender {
+	int tag = ((UIView*)sender).tag;
+	
+	if (tag == 1) {
+		[_controlDelegate clipControlPressedWatch:YES];
+	} else if (tag == 2) {
+		[_controlDelegate clipControlPressedWatch:NO];
+	}
 }
 
 - (void) pressedRecord:(id)sender {

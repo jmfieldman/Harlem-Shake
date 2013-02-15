@@ -15,6 +15,7 @@
 	#import <CoreMedia/CoreMedia.h>
 	#import <Accelerate/Accelerate.h>
 	#import <CoreMotion/CoreMotion.h>
+	#import <MediaPlayer/MediaPlayer.h>
 
 	/* Debug */
 	#import "EXDebug.h"
