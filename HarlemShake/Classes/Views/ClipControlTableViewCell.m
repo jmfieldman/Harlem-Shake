@@ -84,7 +84,7 @@
 	
 	
 	UIImage *befShot = [[VideoModel sharedInstance] screenshotForVideo:videoId beforeDrop:YES];
-	UIImage *aftShot = [[VideoModel sharedInstance] screenshotForVideo:videoId beforeDrop:YES];
+	UIImage *aftShot = [[VideoModel sharedInstance] screenshotForVideo:videoId beforeDrop:NO];
 	
 	if (befShot) {
 		[_befClip setImage:befShot forState:UIControlStateNormal];
@@ -95,7 +95,7 @@
 	}	
 
 	if (aftShot) {
-		[_aftClip setImage:befShot forState:UIControlStateNormal];
+		[_aftClip setImage:aftShot forState:UIControlStateNormal];
 		_aftClip.enabled = YES;
 	} else {
 		[_aftClip setImage:[UIImage imageNamed:@"noclip"] forState:UIControlStateNormal];

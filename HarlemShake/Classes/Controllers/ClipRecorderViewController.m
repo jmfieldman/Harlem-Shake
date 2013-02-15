@@ -16,6 +16,8 @@
 		self.videoId = videoId;
 		self.openedForBeforeClip = before;
 		
+		_shouldRecordBefore = before;
+		
 		/* Configure asset and URLs */
 		_befAudioAsset  = [[AVURLAsset alloc] initWithURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/part1.m4a", [[NSBundle mainBundle] resourcePath]]] options:nil];
 		_aftAudioAsset  = [[AVURLAsset alloc] initWithURL:[NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/part2.m4a", [[NSBundle mainBundle] resourcePath]]] options:nil];
@@ -260,9 +262,15 @@
 	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 }
 
-- (void) pressedCancel:(id)sender {
+- (void) shutdown {
+	[_assetPlayer pause];
+	[_recordingTimer invalidate];
 	[_captureSession stopRunning];
 	[OptionsModel turnOffAllTorches];
+}
+
+- (void) pressedCancel:(id)sender {
+	[self shutdown];
 	[self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -277,7 +285,85 @@
 }
 
 - (void) pressedRecord:(id)sender {
+	_recordButton.userInteractionEnabled = NO;
+	[_motionManager stopAccelerometerUpdates];
 	
+	if ([OptionsModel timerDelay]) {
+		[_recordingTimer invalidate];
+		_timerCountdown = [OptionsModel timerDelay];
+		_recordingTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(recordingTimerHandler:) userInfo:nil repeats:YES];
+		[_recordingTimer fire];
+	} else {
+		[self startRecording];
+	}
+}
+
+- (void) recordingTimerHandler:(NSTimer*)timer {
+	if (_timerCountdown <= 0) {
+		[self startRecording];
+		[_recordingTimer invalidate];
+		_recordingTimer = nil;
+		return;
+	}
+	
+	[_recordButton setTitle:[NSString stringWithFormat:@"Timer: %d second%@", _timerCountdown, (_timerCountdown == 1) ? @"" : @"s"] forState:UIControlStateNormal];
+	if (_timerCountdown <= 3 && [OptionsModel flashBlink]) {
+		[self blinkFlash];
+	}
+	
+	_timerCountdown--;
+}
+
+- (void) startRecording {
+	
+	/* Select assets */
+	AVURLAsset *audioAsset = _shouldRecordBefore ? _befAudioAsset : _aftAudioAsset;
+	NSURL *destTempURL = _shouldRecordBefore ? _befClipTempURL : _aftClipTempURL;
+	//NSURL *destURL     = _shouldRecordBefore ? _befClipURL : _aftClipURL;
+	
+	/* Setup movie output */
+	_movieOutput = [[AVCaptureMovieFileOutput alloc] init];
+	_movieOutput.maxRecordedDuration = audioAsset.duration;
+
+	/* Remove existing outputs */
+	if ([_captureSession.outputs count]) {
+		EXLog(RENDER, INFO, @"Removing existing output: %@", [_captureSession.outputs objectAtIndex:0]);
+		[_captureSession removeOutput:[_captureSession.outputs objectAtIndex:0]];
+	}
+	
+	/* Attach movie output to session */
+	if ([_captureSession canAddOutput:_movieOutput]) {
+		[_captureSession addOutput:_movieOutput];
+	}
+	
+	/* Set orientation */
+	if ([_movieOutput.connections count]) {
+		AVCaptureConnection *conn = [_movieOutput.connections objectAtIndex:0];
+		if (_currentOrientation == UIDeviceOrientationPortrait)           conn.videoOrientation = AVCaptureVideoOrientationPortrait;
+		if (_currentOrientation == UIDeviceOrientationPortraitUpsideDown) conn.videoOrientation = AVCaptureVideoOrientationPortraitUpsideDown;
+		if (_currentOrientation == UIDeviceOrientationLandscapeLeft)      conn.videoOrientation = AVCaptureVideoOrientationLandscapeLeft;
+		if (_currentOrientation == UIDeviceOrientationLandscapeRight)     conn.videoOrientation = AVCaptureVideoOrientationLandscapeRight;		
+	}
+
+	/* Play audio? */
+	if ([OptionsModel playSong]) {
+		[_assetPlayer pause];
+		AVPlayerItem *item = [[AVPlayerItem alloc] initWithAsset:audioAsset];
+		_assetPlayer = [[AVPlayer alloc] initWithPlayerItem:item];
+		[_assetPlayer play];
+	}
+	
+	/* Start movie output */
+	[_movieOutput startRecordingToOutputFileURL:destTempURL recordingDelegate:self];
+}
+
+- (void) blinkFlash {
+	if (!_captureDevice.hasTorch) return;
+	int curOn = _captureDevice.torchActive;
+	[OptionsModel turnFlashOn:!curOn forDevice:_captureDevice];
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+		[OptionsModel turnFlashOn:curOn forDevice:_captureDevice];
+	});
 }
 
 
@@ -398,7 +484,7 @@
 #pragma mark AVCaptureFileOutputRecordingDelegate methods
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error {
-	NSLog(@"did finish (%@)", outputFileURL);
+	EXLog(RENDER, INFO, @"did finish (%@)", outputFileURL);
 	
 	BOOL recordedSuccessfully = YES;
     if ([error code] != noErr) {
@@ -411,20 +497,35 @@
 		NSLog(@"ERROR: %@", error);
 	}
 	
-	NSLog(@"recorded successfully: %d", recordedSuccessfully);
+	if (!recordedSuccessfully) {
+		[[[UIAlertView alloc] initWithTitle:@"Error" message:[NSString stringWithFormat:@"Video not recorded! Error: %@", error] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+		[self pressedCancel:nil];
+	} else {
+		/* Move the file */
+		if (_shouldRecordBefore) {
+			[[NSFileManager defaultManager] removeItemAtURL:_befClipURL error:nil];
+			[[NSFileManager defaultManager] moveItemAtURL:_befClipTempURL toURL:_befClipURL error:nil];
+			[[VideoModel sharedInstance] deleteScreenshotForVideo:_videoId beforeDrop:YES];
+		} else {
+			[[NSFileManager defaultManager] removeItemAtURL:_aftClipURL error:nil];
+			[[NSFileManager defaultManager] moveItemAtURL:_aftClipTempURL toURL:_aftClipURL error:nil];
+			[[VideoModel sharedInstance] deleteScreenshotForVideo:_videoId beforeDrop:NO];
+		}
 		
-	[_captureSession stopRunning];
+		/* Record the next piece? */
+		if ([OptionsModel recordBoth]) {
+			
+		} else {
+			/* Otherwise we're done! */
+			[self pressedCancel:nil];
+		}
+	}
 }
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections {
-	NSLog(@"did start");
+	EXLog(RENDER, INFO, @"did start");
 }
 
-- (void)               video: (NSString *) videoPath
-    didFinishSavingWithError: (NSError *) error
-                 contextInfo: (void *) contextInfo {
-	NSLog(@"SAVED [error: %@]", error);
-}
 
 
 @end

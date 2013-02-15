@@ -39,6 +39,14 @@
 	AVCaptureDevice      *_captureDevice;
 	AVCaptureDeviceInput *_captureDeviceInput;
 	
+	BOOL                  _shouldRecordBefore;
+	NSTimer              *_recordingTimer;
+	int                   _timerCountdown;
+	
+	AVCaptureMovieFileOutput *_movieOutput;
+	
+	AVPlayer                 *_assetPlayer;
+	
 	/* Asset stuff */
 	AVURLAsset *_befAudioAsset;
 	AVURLAsset *_aftAudioAsset;
