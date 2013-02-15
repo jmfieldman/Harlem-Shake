@@ -122,7 +122,8 @@
 	{
 		NSMutableArray *currentSection = [NSMutableArray array];
 	
-		if ([[VideoModel sharedInstance] fullVideoExistsForVideo:_videoId]) {
+		if (_forceExistanceOfVideo || [[VideoModel sharedInstance] fullVideoExistsForVideo:_videoId]) {
+			_forceExistanceOfVideo = NO;
 			
 			/* This is what happens if the full video is already encoded! */
 			
@@ -180,6 +181,112 @@
 	_videoId = videoId;
 }
 
+#pragma mark Encoding
+
+- (void) encodeMovie {
+	EXLog(RENDER, INFO, @"Starting to encode");
+	
+	AVMutableComposition *mixComposition = [AVMutableComposition composition];
+	
+	/* Get assets */
+	
+	NSString *audioPath1 = [NSString stringWithFormat:@"%@/part1.m4a", [[NSBundle mainBundle] resourcePath]];
+	NSURL *audioUrl1 = [NSURL fileURLWithPath:audioPath1];
+	AVURLAsset *audioasset1 = [[AVURLAsset alloc] initWithURL:audioUrl1 options:nil];
+	
+	NSString *audioPath2 = [NSString stringWithFormat:@"%@/part2.m4a", [[NSBundle mainBundle] resourcePath]];
+	NSURL *audioUrl2 = [NSURL fileURLWithPath:audioPath2];
+	AVURLAsset *audioasset2 = [[AVURLAsset alloc] initWithURL:audioUrl2 options:nil];
+	
+	NSString *videoPath1 = [[VideoModel sharedInstance] pathToClipForVideo:_videoId beforeDrop:YES];
+	NSURL *videoUrl1 = [NSURL fileURLWithPath:videoPath1];
+	AVURLAsset *videoasset1 = [[AVURLAsset alloc] initWithURL:videoUrl1 options:nil];
+	
+	NSString *videoPath2 = [[VideoModel sharedInstance] pathToClipForVideo:_videoId beforeDrop:NO];
+	NSURL *videoUrl2 = [NSURL fileURLWithPath:videoPath2];
+	AVURLAsset *videoasset2 = [[AVURLAsset alloc] initWithURL:videoUrl2 options:nil];
+	
+	/* Output path */
+	
+	NSString *outputPath = [[VideoModel sharedInstance] pathToFullVideoTemp:_videoId];
+	NSURL *outputURL = [NSURL fileURLWithPath:outputPath];
+	
+	if ([[NSFileManager defaultManager] fileExistsAtPath:outputPath]) {
+		[[NSFileManager defaultManager] removeItemAtPath:outputPath error:nil];
+	}
+
+	/* Create composition */
+	
+	NSError *error;
+	CMTime nextClipStartTime = kCMTimeZero;
+	
+	AVMutableCompositionTrack *compositionTrackB = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
+	AVAssetTrack *clipVideoTrackB = [[videoasset1 tracksWithMediaType:AVMediaTypeVideo] lastObject];
+	[compositionTrackB insertTimeRange:CMTimeRangeMake(kCMTimeZero, videoasset1.duration)  ofTrack:clipVideoTrackB atTime:kCMTimeZero error:&error];
+	if (error) { NSLog(@"ERRORA: %@", error); }
+	
+	nextClipStartTime = CMTimeAdd(nextClipStartTime, videoasset1.duration);
+	
+	AVAssetTrack *clipVideoTrackB2 = [[videoasset2 tracksWithMediaType:AVMediaTypeVideo] lastObject];
+	[compositionTrackB insertTimeRange:CMTimeRangeMake(kCMTimeZero, videoasset2.duration)  ofTrack:clipVideoTrackB2 atTime:nextClipStartTime error:&error];
+	if (error) { NSLog(@"ERRORB: %@", error); }
+	
+	AVMutableCompositionTrack *compositionTrackA = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+	AVAssetTrack *clipAudioTrackA = [[audioasset1 tracksWithMediaType:AVMediaTypeAudio] lastObject];
+	[compositionTrackA insertTimeRange:CMTimeRangeMake(kCMTimeZero, audioasset1.duration)  ofTrack:clipAudioTrackA atTime:kCMTimeZero error:nil];
+	
+	AVMutableCompositionTrack *compositionTrackA2 = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+	AVAssetTrack *clipAudioTrackA2 = [[audioasset2 tracksWithMediaType:AVMediaTypeAudio] lastObject];
+	[compositionTrackA2 insertTimeRange:CMTimeRangeMake(kCMTimeZero, audioasset2.duration)  ofTrack:clipAudioTrackA2 atTime:audioasset1.duration error:nil];
+	
+	/* Export session */
+	
+	_exportSession =[[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetHighestQuality];
+	_exportSession.outputFileType = AVFileTypeMPEG4;
+	_exportSession.outputURL = outputURL;
+	
+	/* Begin */
+	
+	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+	
+	[_exportSession exportAsynchronouslyWithCompletionHandler:^{
+		
+		switch ([_exportSession status]) {
+			case AVAssetExportSessionStatusFailed:
+				EXLog(RENDER, ERR, @"Export failed: %@", [[_exportSession error] localizedDescription]);
+				break;
+			case AVAssetExportSessionStatusCancelled:
+				EXLog(RENDER, ERR, @"Export canceled");
+				break;
+			case AVAssetExportSessionStatusCompleted:
+				EXLog(RENDER, INFO, @"Export done");
+				
+				/* Move the file over */
+				[[NSFileManager defaultManager] removeItemAtPath:[[VideoModel sharedInstance] pathToFullVideo:_videoId] error:nil];
+				[[NSFileManager defaultManager] moveItemAtPath:[[VideoModel sharedInstance] pathToFullVideoTemp:_videoId] toPath:[[VideoModel sharedInstance] pathToFullVideo:_videoId] error:nil];
+				_forceExistanceOfVideo = YES;
+				
+				break;
+		}
+		
+		[_exportStatusTimer invalidate];
+		_exportStatusTimer = nil;
+		
+		[SVProgressHUD dismiss];
+		[self initializeTableCells];
+		[_tableView reloadData];
+		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		
+	}];
+	
+	/* Start status timer */
+	[_exportStatusTimer invalidate];
+	_exportStatusTimer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(handleExportStatusTimer:) userInfo:nil repeats:YES];
+}
+
+- (void) handleExportStatusTimer:(NSTimer*)timer {
+	[SVProgressHUD showProgress:_exportSession.progress status:@"Encoding" maskType:SVProgressHUDMaskTypeGradient];
+}
 
 #pragma mark ClipControlTableViewCellDelegate methods
 
@@ -233,6 +340,11 @@
 		case kCellTag_RecordingOptions: {
 			RecordingOptionsViewController *rovc = [[RecordingOptionsViewController alloc] init];
 			[self.navigationController pushViewController:rovc animated:YES];
+		}
+		break;
+			
+		case kCellTag_EncodeVideo: {
+			[self encodeMovie];
 		}
 		break;
 			

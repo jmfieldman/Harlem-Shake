@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		350D6DFE16CCBE4A003E91A2 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 350D6DFD16CCBE4A003E91A2 /* CoreMotion.framework */; };
 		350D6E0116CDA3AF003E91A2 /* ButtonEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 350D6DFF16CDA3AF003E91A2 /* ButtonEffects.m */; };
+		350D6E0416CDBD75003E91A2 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 350D6E0316CDBD75003E91A2 /* SVProgressHUD.m */; };
 		35BF260B16CC8F920089F647 /* noclip.png in Resources */ = {isa = PBXBuildFile; fileRef = 35E3DDE916CC7D87001AE3A4 /* noclip.png */; };
 		35BF260C16CC8F920089F647 /* noclip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 35E3DDEA16CC7D87001AE3A4 /* noclip@2x.png */; };
 		35BF260D16CC8F920089F647 /* record.png in Resources */ = {isa = PBXBuildFile; fileRef = 35E3DDEB16CC7D87001AE3A4 /* record.png */; };
@@ -51,6 +52,8 @@
 		350D6DFD16CCBE4A003E91A2 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		350D6DFF16CDA3AF003E91A2 /* ButtonEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonEffects.m; sourceTree = "<group>"; };
 		350D6E0016CDA3AF003E91A2 /* ButtonEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonEffects.h; sourceTree = "<group>"; };
+		350D6E0216CDBD75003E91A2 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		350D6E0316CDBD75003E91A2 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		35E3DDC716CC7C9A001AE3A4 /* HarlemShake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HarlemShake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35E3DDCA16CC7C9A001AE3A4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		35E3DDCC16CC7C9A001AE3A4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -242,6 +245,8 @@
 		35E3DDFB16CC7D87001AE3A4 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				350D6E0216CDBD75003E91A2 /* SVProgressHUD.h */,
+				350D6E0316CDBD75003E91A2 /* SVProgressHUD.m */,
 				350D6E0016CDA3AF003E91A2 /* ButtonEffects.h */,
 				350D6DFF16CDA3AF003E91A2 /* ButtonEffects.m */,
 				35E3DDFC16CC7D87001AE3A4 /* EXDebug.h */,
@@ -378,6 +383,7 @@
 				35E3DE2416CC7D87001AE3A4 /* UITableViewCellEx.m in Sources */,
 				35E3DE2516CC7D87001AE3A4 /* VideoListTableViewCell.m in Sources */,
 				350D6E0116CDA3AF003E91A2 /* ButtonEffects.m in Sources */,
+				350D6E0416CDBD75003E91A2 /* SVProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

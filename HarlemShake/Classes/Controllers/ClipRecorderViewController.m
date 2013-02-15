@@ -288,6 +288,13 @@
 	_recordButton.userInteractionEnabled = NO;
 	[_motionManager stopAccelerometerUpdates];
 	
+	/* Hide the camera controls! */
+	[UIView beginAnimations:nil context:NULL];
+	_topRContainer.alpha = 0;
+	_topRContainer.userInteractionEnabled = NO;
+	[UIView commitAnimations];
+	
+	
 	if ([OptionsModel timerDelay]) {
 		[_recordingTimer invalidate];
 		_timerCountdown = [OptionsModel timerDelay];
@@ -296,6 +303,8 @@
 	} else {
 		[self startRecording];
 	}
+	
+
 }
 
 - (void) recordingTimerHandler:(NSTimer*)timer {
@@ -511,6 +520,9 @@
 			[[NSFileManager defaultManager] moveItemAtURL:_aftClipTempURL toURL:_aftClipURL error:nil];
 			[[VideoModel sharedInstance] deleteScreenshotForVideo:_videoId beforeDrop:NO];
 		}
+		
+		/* We also need to remove the fully encoded movie if it was there */
+		[[NSFileManager defaultManager] removeItemAtPath:[[VideoModel sharedInstance] pathToFullVideo:_videoId] error:nil];
 		
 		/* Record the next piece? */
 		if ([OptionsModel recordBoth]) {

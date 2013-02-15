@@ -15,6 +15,11 @@
 	
 	/* Table view */
 	UITableView *_tableView;
+	
+	/* Export encoder */
+	AVAssetExportSession *_exportSession;
+	NSTimer *_exportStatusTimer;
+	BOOL _forceExistanceOfVideo;
 }
 
 @property (nonatomic, strong) VideoID_t videoId;
