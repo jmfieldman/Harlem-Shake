@@ -16,6 +16,7 @@
 	#import <Accelerate/Accelerate.h>
 	#import <CoreMotion/CoreMotion.h>
 	#import <MediaPlayer/MediaPlayer.h>
+	#import <MessageUI/MessageUI.h>
 
 	/* Debug */
 	#import "EXDebug.h"
