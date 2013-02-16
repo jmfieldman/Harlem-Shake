@@ -24,7 +24,15 @@
 - (void) setVideoId:(VideoID_t)videoId {
 	_videoId = videoId;
 	
-	self.textLabel.text = videoId;
+	
+	NSDictionary *vidInfo = [[VideoModel sharedInstance] videoDic:_videoId];
+	
+	self.textLabel.text = [[vidInfo objectForKey:@"title"] length] ? [vidInfo objectForKey:@"title"] : @"Untitled";
+	self.detailTextLabel.text = [[vidInfo objectForKey:@"description"] length] ? [vidInfo objectForKey:@"description"] : @"No description";
+	
+	UIImage *clip = [[VideoModel sharedInstance] screenshotForVideo:_videoId beforeDrop:YES];
+	if (!clip) clip = [[VideoModel sharedInstance] screenshotForVideo:_videoId beforeDrop:NO];
+	self.imageView.image = clip ? clip : [UIImage imageNamed:@"noclip"];
 }
 
 @end

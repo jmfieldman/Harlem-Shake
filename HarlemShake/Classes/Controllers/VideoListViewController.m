@@ -40,6 +40,7 @@ SINGLETON_IMPL(VideoListViewController);
 		_tableView.backgroundColor = [UIColor clearColor];
 		_tableView.delegate = self;
 		_tableView.dataSource = self;
+		_tableView.rowHeight = 60;
 		[self.view addSubview:_tableView];
 		
 		
@@ -107,7 +108,7 @@ SINGLETON_IMPL(VideoListViewController);
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	VideoListTableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:@"VideoListTableViewCell"];
 	if (!cell) {
-		cell = [[VideoListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"VideoListTableViewCell"];
+		cell = [[VideoListTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"VideoListTableViewCell"];
 	}
 	
 	/* Set the video ID */
