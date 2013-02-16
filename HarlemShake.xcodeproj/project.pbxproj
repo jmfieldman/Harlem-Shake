@@ -16,6 +16,8 @@
 		35BF260E16CC8F920089F647 /* record@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 35E3DDEC16CC7D87001AE3A4 /* record@2x.png */; };
 		35BF260F16CC8F920089F647 /* part1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 35E3DE1116CC7D87001AE3A4 /* part1.m4a */; };
 		35BF261016CC8F920089F647 /* part2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 35E3DE1216CC7D87001AE3A4 /* part2.m4a */; };
+		35BF261316D005640089F647 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 35BF261116D005640089F647 /* play.png */; };
+		35BF261416D005640089F647 /* play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 35BF261216D005640089F647 /* play@2x.png */; };
 		35E3DDCB16CC7C9A001AE3A4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E3DDCA16CC7C9A001AE3A4 /* UIKit.framework */; };
 		35E3DDCD16CC7C9A001AE3A4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E3DDCC16CC7C9A001AE3A4 /* Foundation.framework */; };
 		35E3DDCF16CC7C9A001AE3A4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E3DDCE16CC7C9A001AE3A4 /* CoreGraphics.framework */; };
@@ -54,6 +56,8 @@
 		350D6E0016CDA3AF003E91A2 /* ButtonEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonEffects.h; sourceTree = "<group>"; };
 		350D6E0216CDBD75003E91A2 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
 		350D6E0316CDBD75003E91A2 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		35BF261116D005640089F647 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
+		35BF261216D005640089F647 /* play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play@2x.png"; sourceTree = "<group>"; };
 		35E3DDC716CC7C9A001AE3A4 /* HarlemShake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HarlemShake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35E3DDCA16CC7C9A001AE3A4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		35E3DDCC16CC7C9A001AE3A4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -204,6 +208,8 @@
 		35E3DDE816CC7D87001AE3A4 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				35BF261116D005640089F647 /* play.png */,
+				35BF261216D005640089F647 /* play@2x.png */,
 				35E3DDE916CC7D87001AE3A4 /* noclip.png */,
 				35E3DDEA16CC7D87001AE3A4 /* noclip@2x.png */,
 				35E3DDEB16CC7D87001AE3A4 /* record.png */,
@@ -355,6 +361,8 @@
 				35BF260E16CC8F920089F647 /* record@2x.png in Resources */,
 				35BF260F16CC8F920089F647 /* part1.m4a in Resources */,
 				35BF261016CC8F920089F647 /* part2.m4a in Resources */,
+				35BF261316D005640089F647 /* play.png in Resources */,
+				35BF261416D005640089F647 /* play@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -25,6 +25,9 @@
 	
 	UIButton *_befClip;
 	UIButton *_aftClip;
+	
+	UIImageView *_befPlay;
+	UIImageView *_aftPlay;
 }
 
 @property (nonatomic, strong) VideoID_t videoId;

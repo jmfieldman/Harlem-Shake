@@ -47,6 +47,15 @@
 		[_aftClip addTarget:self action:@selector(pressedWatch:) forControlEvents:UIControlEventTouchUpInside];
 		[self.contentView addSubview:_aftClip];
 		
+		/* Play overlay */
+		_befPlay = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"play"]];
+		_befPlay.center = CGPointMake(40, 40);
+		[_befClip addSubview:_befPlay];
+		
+		_aftPlay = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"play"]];
+		_aftPlay.center = CGPointMake(40, 40);
+		[_aftClip addSubview:_aftPlay];
+		
 		/* Record buttons */
 		_befRecord = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 		_befRecord.tag = 1;
@@ -103,17 +112,21 @@
 	if (befShot) {
 		[_befClip setImage:befShot forState:UIControlStateNormal];
 		_befClip.enabled = YES;
+		_befPlay.alpha = 0.55;
 	} else {
 		[_befClip setImage:[UIImage imageNamed:@"noclip"] forState:UIControlStateNormal];
 		_befClip.enabled = NO;
+		_befPlay.alpha = 0.0;
 	}	
 
 	if (aftShot) {
 		[_aftClip setImage:aftShot forState:UIControlStateNormal];
 		_aftClip.enabled = YES;
+		_aftPlay.alpha = 0.55;
 	} else {
 		[_aftClip setImage:[UIImage imageNamed:@"noclip"] forState:UIControlStateNormal];
 		_aftClip.enabled = NO;
+		_aftPlay.alpha = 0.0;
 	}
 }
 
