@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ClipControlTableViewCell.h"
 
-@interface VideoInfoViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, ClipControlTableViewCellDelegate, UIActionSheetDelegate> {
+@interface VideoInfoViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, ClipControlTableViewCellDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
 	/* Array that contains the table cells */
 	NSMutableArray *_tableCells;
 	

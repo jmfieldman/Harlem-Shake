@@ -173,6 +173,15 @@
 				[currentSection addObject:cell];
 			}
 
+			{
+				NSDictionary *fdic = [[NSFileManager defaultManager] attributesOfItemAtPath:[[VideoModel sharedInstance] pathToFullVideo:_videoId] error:nil];
+				unsigned long long filesize = [fdic fileSize];
+				float mbs = filesize / (1024.0 * 1024.0);
+				
+				UITableViewCellEx *cell = [[UITableViewCellEx alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
+				cell.sectionFooterText = [NSString stringWithFormat:@"The full video filesize is %.1f MB", mbs];
+				[currentSection addObject:cell];
+			}
 			
 		} else {
 			
@@ -350,11 +359,6 @@
 		instruction.timeRange = CMTimeRangeMake(kCMTimeZero, CMTimeMakeWithSeconds(60, 30) );
 		
 		AVMutableVideoCompositionLayerInstruction* rotator = [AVMutableVideoCompositionLayerInstruction videoCompositionLayerInstructionWithAssetTrack:[[videoasset1 tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0]];
-		//CGAffineTransform translateToCenter = CGAffineTransformMakeTranslation( 0,-320);
-		//CGAffineTransform rotateBy90Degrees = CGAffineTransformMakeRotation( M_PI_2);
-		//CGAffineTransform shrinkWidth = CGAffineTransformMakeScale(0.66, 1); // needed because Apple does a "stretch" by default - really, we should find and undo apple's stretch - I suspect it'll be a CALayer defaultTransform, or UIView property causing this
-		//CGAffineTransform finalTransform = CGAffineTransformConcat( shrinkWidth, CGAffineTransformConcat(translateToCenter, rotateBy90Degrees) );
-		//[rotator setTransform:finalTransform atTime:kCMTimeZero];
 		[rotator setTransform:txf atTime:kCMTimeZero];
 		
 		instruction.layerInstructions = [NSArray arrayWithObject: rotator];
@@ -438,6 +442,12 @@
 	[self presentViewController:crvc animated:YES completion:nil];
 }
 
+#pragma mark MFMailComposeViewControllerDelegate methods
+
+- (void) mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark UIActionSheetDelegate methods
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -447,6 +457,19 @@
 	switch (offset) {
 		case 0: {
 			EXLog(ANY, INFO, @"EMAIL");
+			
+			MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+			picker.mailComposeDelegate = self;
+			[picker setSubject:@"Check out my Harlem Shake video!"];
+						
+			/* Attach movie */
+			NSData *movieData = [NSData dataWithContentsOfFile:[[VideoModel sharedInstance] pathToFullVideo:_videoId]];
+			[picker addAttachmentData:movieData mimeType:@"video/mp4" fileName:@"harlemshake.mp4"];
+			
+			/* Body */
+			NSString *emailBody = @"\n\n[This video was created with the Harlem Shake iPhone app]";
+			[picker setMessageBody:emailBody isHTML:NO];
+			[self presentViewController:picker animated:YES completion:nil];
 		}
 		break;
 			
