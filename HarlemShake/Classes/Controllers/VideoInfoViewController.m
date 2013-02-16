@@ -212,7 +212,14 @@
 - (void)               video: (NSString *) videoPath
     didFinishSavingWithError: (NSError *) error
                  contextInfo: (void *) contextInfo {
-	NSLog(@"SAVED [error: %@]", error);
+	EXLog(ANY, INFO, @"SAVED [error: %@]", error);
+	
+	if (error.code != noErr) {
+		[[[UIAlertView alloc] initWithTitle:@"Error" message:[NSString stringWithFormat:@"There was an error saving the movie to your album: %@", error] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+	} else {
+		[[[UIAlertView alloc] initWithTitle:@"Movie Saved" message:@"The movie has been saved to your photos!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+	}
+	
 }
 
 #pragma mark Encoding
@@ -431,6 +438,37 @@
 	[self presentViewController:crvc animated:YES completion:nil];
 }
 
+#pragma mark UIActionSheetDelegate methods
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == actionSheet.cancelButtonIndex) return;
+	
+	int offset = buttonIndex - actionSheet.firstOtherButtonIndex;
+	switch (offset) {
+		case 0: {
+			EXLog(ANY, INFO, @"EMAIL");
+		}
+		break;
+			
+		case 1: {
+			EXLog(ANY, INFO, @"PHOTOS");
+			
+			NSURL *url = [NSURL fileURLWithPath:[[VideoModel sharedInstance] pathToFullVideo:_videoId]];
+			UISaveVideoAtPathToSavedPhotosAlbum([url relativePath], self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+		}
+		break;
+			
+		case 2: {
+			EXLog(ANY, INFO, @"FACEBOOK");
+		}
+		break;
+			
+		case 3: {
+			EXLog(ANY, INFO, @"YOUTUBE");
+		}
+		break;
+	}
+}
 
 #pragma mark UITableViewDelegate methods
 
@@ -491,8 +529,8 @@
 		break;
 			
 		case kCellTag_Share: {
-			NSURL *url = [NSURL fileURLWithPath:[[VideoModel sharedInstance] pathToFullVideo:_videoId]];
-			UISaveVideoAtPathToSavedPhotosAlbum([url relativePath], self,@selector(video:didFinishSavingWithError:contextInfo:), nil);
+			[[[UIActionSheet alloc] initWithTitle:@"How would you like to share this video?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Email", @"Save to Photos", @"Upload to Facebook", @"Upload to Youtube", nil] showInView:self.view];
+			
 		}
 		break;
 			
