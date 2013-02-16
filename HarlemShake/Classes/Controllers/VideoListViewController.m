@@ -43,16 +43,46 @@ SINGLETON_IMPL(VideoListViewController);
 		_tableView.rowHeight = 60;
 		[self.view addSubview:_tableView];
 		
-		
+		/* No videos? */
+		_noVideoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 200)];
+		_noVideoLabel.textAlignment = NSTextAlignmentCenter;
+		_noVideoLabel.textColor = [UIColor darkGrayColor];
+		_noVideoLabel.text = @"The video list is empty.\n\nTo begin creating a new video,\npress the '+' button above.";
+		_noVideoLabel.numberOfLines = 0;
+		_noVideoLabel.alpha = 0;
+		[self.view addSubview:_noVideoLabel];
 		
 	}
 	return self;
 }
 
 
+- (void) showProperView {
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+	if ([VideoModel sharedInstance].numberOfVideos) {
+		_tableView.alpha = 1;
+		_noVideoLabel.alpha = 0;
+		self.navigationItem.leftBarButtonItem.enabled = YES;
+	} else {
+		
+		if ([_tableView isEditing]) {
+			[self pressedEditVideos:nil];
+		}
+		
+		self.navigationItem.leftBarButtonItem.enabled = NO;
+		
+		_tableView.alpha = 0;
+		_noVideoLabel.alpha = 1;
+	}
+	[UIView commitAnimations];
+}
+
+
 /* When the view comes back into view, let's make sure we reload the table data */
 - (void) viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+	[self showProperView];
 	[_tableView reloadData];
 }
 
@@ -103,6 +133,9 @@ SINGLETON_IMPL(VideoListViewController);
 	
 	/* Animate delete */
 	[_tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+	
+	/* Show proper view? */
+	[self showProperView];
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

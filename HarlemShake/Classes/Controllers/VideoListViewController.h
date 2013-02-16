@@ -10,6 +10,8 @@
 
 @interface VideoListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
 	UITableView *_tableView;
+	
+	UILabel *_noVideoLabel;
 }
 
 SINGLETON_INTR(VideoListViewController);
