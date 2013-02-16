@@ -32,7 +32,9 @@
 	
 	UIImage *clip = [[VideoModel sharedInstance] screenshotForVideo:_videoId beforeDrop:YES];
 	if (!clip) clip = [[VideoModel sharedInstance] screenshotForVideo:_videoId beforeDrop:NO];
-	self.imageView.image = clip ? clip : [UIImage imageNamed:@"noclip"];
+	UIImage *clipToUse = clip ? clip : [UIImage imageNamed:@"noclip"];
+	
+	self.imageView.image = squareImageCutout(clipToUse, 60, 0.5, 0.5);
 }
 
 @end

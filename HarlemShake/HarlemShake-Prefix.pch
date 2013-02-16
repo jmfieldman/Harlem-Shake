@@ -26,6 +26,7 @@
 	#import "PersistentDictionary.h"
 	#import "ButtonEffects.h"
 	#import "SVProgressHUD.h"
+	#import "ImageHelpers.h"
 
 	/* Model */
 	#import "VideoModel.h"
