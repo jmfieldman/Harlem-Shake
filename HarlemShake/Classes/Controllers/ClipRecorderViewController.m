@@ -277,6 +277,8 @@
 	[_progressTimer invalidate];
 	_progressTimer = nil;
 	
+	_dontSave = YES;
+	
 	[_captureSession stopRunning];
 	[OptionsModel turnOffAllTorches];
 }
@@ -546,7 +548,7 @@
 	if (!recordedSuccessfully) {
 		[[[UIAlertView alloc] initWithTitle:@"Error" message:[NSString stringWithFormat:@"Video not recorded! Error: %@", error] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 		[self pressedCancel:nil];
-	} else {
+	} else if (!_dontSave) {
 		/* Move the file */
 		if (_shouldRecordBefore) {
 			[[NSFileManager defaultManager] removeItemAtURL:_befClipURL error:nil];

@@ -49,6 +49,7 @@
 	CFTimeInterval        _recordingDuration;
 	
 	BOOL                  _onSecondStep;
+	BOOL                  _dontSave;
 	
 	AVCaptureMovieFileOutput *_movieOutput;
 	
