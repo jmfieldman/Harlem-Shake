@@ -43,6 +43,13 @@
 	NSTimer              *_recordingTimer;
 	int                   _timerCountdown;
 	
+	UIProgressView       *_recordingProgress;
+	NSTimer              *_progressTimer;
+	CFTimeInterval        _recordingStartsAt;
+	CFTimeInterval        _recordingDuration;
+	
+	BOOL                  _onSecondStep;
+	
 	AVCaptureMovieFileOutput *_movieOutput;
 	
 	AVPlayer                 *_assetPlayer;

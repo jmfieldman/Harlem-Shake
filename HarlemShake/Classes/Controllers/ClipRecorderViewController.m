@@ -154,6 +154,12 @@
 		[_interfaceContainer addSubview:_recordButton];
 		
 		
+		_recordingProgress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
+		_recordingProgress.frame = CGRectMake(0, 0, _recordButton.frame.size.width - 30, 10);
+		_recordingProgress.center = CGPointMake(_recordButton.bounds.size.width/2, _recordButton.bounds.size.height/2);
+		_recordingProgress.alpha = 0;
+		[_recordButton addSubview:_recordingProgress];
+		
 		_timerSetupLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
 		_timerSetupLabel.center = CGPointMake(_recordButton.center.x, _recordButton.center.y + 35);
 		_timerSetupLabel.textColor = [UIColor whiteColor];
@@ -264,7 +270,13 @@
 
 - (void) shutdown {
 	[_assetPlayer pause];
+	
 	[_recordingTimer invalidate];
+	_recordingTimer = nil;
+	
+	[_progressTimer invalidate];
+	_progressTimer = nil;
+	
 	[_captureSession stopRunning];
 	[OptionsModel turnOffAllTorches];
 }
@@ -295,9 +307,14 @@
 	[UIView commitAnimations];
 	
 	
-	if ([OptionsModel timerDelay]) {
+	if ([OptionsModel timerDelay] || _onSecondStep) {
 		[_recordingTimer invalidate];
 		_timerCountdown = [OptionsModel timerDelay];
+		if (_onSecondStep) {
+			_timerCountdown = [OptionsModel recordBoth];
+			_contRecordLabel.text = @"App will now record \"After Drop\"";
+			_contRecordLabel.textColor = [UIColor greenColor];
+		}
 		_recordingTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(recordingTimerHandler:) userInfo:nil repeats:YES];
 		[_recordingTimer fire];
 	} else {
@@ -350,10 +367,18 @@
 		AVCaptureConnection *conn = [_movieOutput.connections objectAtIndex:0];
 		if (_currentOrientation == UIDeviceOrientationPortrait)           conn.videoOrientation = AVCaptureVideoOrientationPortrait;
 		if (_currentOrientation == UIDeviceOrientationPortraitUpsideDown) conn.videoOrientation = AVCaptureVideoOrientationPortraitUpsideDown;
-		if (_currentOrientation == UIDeviceOrientationLandscapeLeft)      conn.videoOrientation = AVCaptureVideoOrientationLandscapeLeft;
-		if (_currentOrientation == UIDeviceOrientationLandscapeRight)     conn.videoOrientation = AVCaptureVideoOrientationLandscapeRight;		
+		if (_currentOrientation == UIDeviceOrientationLandscapeLeft)      conn.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
+		if (_currentOrientation == UIDeviceOrientationLandscapeRight)     conn.videoOrientation = AVCaptureVideoOrientationLandscapeLeft;
 	}
 
+	/* Show progress bar */
+	_recordingStartsAt = CFAbsoluteTimeGetCurrent();
+	_recordingDuration = CMTimeGetSeconds(audioAsset.duration);
+	_recordingProgress.alpha = 1;
+	_recordingProgress.progress = 0;
+	[_recordButton setTitle:@"" forState:UIControlStateNormal];
+	_progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(handleProgressTimer:) userInfo:nil repeats:YES];
+	
 	/* Play audio? */
 	if ([OptionsModel playSong]) {
 		[_assetPlayer pause];
@@ -373,6 +398,18 @@
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
 		[OptionsModel turnFlashOn:curOn forDevice:_captureDevice];
 	});
+}
+
+
+- (void) handleProgressTimer:(NSTimer*)timer {
+	CFTimeInterval curTime = CFAbsoluteTimeGetCurrent();
+	CFTimeInterval elapsed = curTime - _recordingStartsAt;
+	float prog = elapsed / _recordingDuration;
+	_recordingProgress.progress = prog;
+	if (prog > 1) {
+		[_progressTimer invalidate];
+		_progressTimer = nil;
+	}
 }
 
 
@@ -524,9 +561,17 @@
 		/* We also need to remove the fully encoded movie if it was there */
 		[[NSFileManager defaultManager] removeItemAtPath:[[VideoModel sharedInstance] pathToFullVideo:_videoId] error:nil];
 		
+		/* Kill progress bar */
+		[_progressTimer invalidate];
+		_progressTimer = nil;
+		_recordingProgress.progress = 0;
+		_recordingProgress.alpha = 0;
+		
 		/* Record the next piece? */
-		if ([OptionsModel recordBoth]) {
-			
+		if (_shouldRecordBefore && [OptionsModel recordBoth]) {
+			_shouldRecordBefore = NO;
+			_onSecondStep = YES;
+			[self pressedRecord:nil];
 		} else {
 			/* Otherwise we're done! */
 			[self pressedCancel:nil];

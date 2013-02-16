@@ -97,6 +97,9 @@ SINGLETON_IMPL(VideoModel);
 	/* And add it to the end of the order array */
 	[_videoOrder addObject:newId];
 	
+	/* Make sure directory exists */
+	[[NSFileManager defaultManager] createDirectoryAtPath:[self dataDirectoryForVideo:newId] withIntermediateDirectories:YES attributes:nil error:nil];
+	
 	/* Save video info */
 	[[PersistentDictionary dictionaryWithName:@"videoOrder"] saveToFile];
 	[nvd saveToFile];
@@ -117,6 +120,9 @@ SINGLETON_IMPL(VideoModel);
 	
 	/* Save video order */
 	[[PersistentDictionary dictionaryWithName:@"videoOrder"] saveToFile];
+	
+	/* Remove video directory */
+	[[NSFileManager defaultManager] removeItemAtPath:[self dataDirectoryForVideo:videoId] error:nil];
 }
 
 

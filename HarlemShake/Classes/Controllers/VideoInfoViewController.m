@@ -376,6 +376,7 @@
 				break;
 			case AVAssetExportSessionStatusCompleted:
 				EXLog(RENDER, INFO, @"Export done");
+				[SVProgressHUD showProgress:1 status:@"Finishing" maskType:SVProgressHUDMaskTypeGradient];
 				
 				/* Move the file over */
 				[[NSFileManager defaultManager] removeItemAtPath:[[VideoModel sharedInstance] pathToFullVideo:_videoId] error:nil];
