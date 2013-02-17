@@ -23,6 +23,11 @@
 		35BF261B16D0131E0089F647 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35BF261A16D0131E0089F647 /* MessageUI.framework */; };
 		35BF262216D14CF70089F647 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 35BF261E16D14CF70089F647 /* icon.png */; };
 		35BF262416D14CF70089F647 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 35BF262016D14CF70089F647 /* icon@2x.png */; };
+		35BF262616D153930089F647 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35BF262516D153930089F647 /* FacebookSDK.framework */; };
+		35BF262A16D153DA0089F647 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35BF262716D153DA0089F647 /* Accounts.framework */; };
+		35BF262B16D153DA0089F647 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35BF262816D153DA0089F647 /* AdSupport.framework */; };
+		35BF262C16D153DA0089F647 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35BF262916D153DA0089F647 /* Social.framework */; };
+		35BF262E16D154DB0089F647 /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 35BF262D16D154DB0089F647 /* FacebookSDKResources.bundle */; };
 		35E3DDCB16CC7C9A001AE3A4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E3DDCA16CC7C9A001AE3A4 /* UIKit.framework */; };
 		35E3DDCD16CC7C9A001AE3A4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E3DDCC16CC7C9A001AE3A4 /* Foundation.framework */; };
 		35E3DDCF16CC7C9A001AE3A4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E3DDCE16CC7C9A001AE3A4 /* CoreGraphics.framework */; };
@@ -69,6 +74,11 @@
 		35BF261A16D0131E0089F647 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		35BF261E16D14CF70089F647 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		35BF262016D14CF70089F647 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		35BF262516D153930089F647 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = HarlemShake/FacebookSDK.framework; sourceTree = "<group>"; };
+		35BF262716D153DA0089F647 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		35BF262816D153DA0089F647 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		35BF262916D153DA0089F647 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		35BF262D16D154DB0089F647 /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FacebookSDKResources.bundle; path = ../FacebookSDK/FacebookSDK.framework/Versions/A/Resources/FacebookSDKResources.bundle; sourceTree = "<group>"; };
 		35E3DDC716CC7C9A001AE3A4 /* HarlemShake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HarlemShake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35E3DDCA16CC7C9A001AE3A4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		35E3DDCC16CC7C9A001AE3A4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -131,6 +141,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35BF262A16D153DA0089F647 /* Accounts.framework in Frameworks */,
+				35BF262B16D153DA0089F647 /* AdSupport.framework in Frameworks */,
+				35BF262C16D153DA0089F647 /* Social.framework in Frameworks */,
 				35BF261B16D0131E0089F647 /* MessageUI.framework in Frameworks */,
 				350D6DFE16CCBE4A003E91A2 /* CoreMotion.framework in Frameworks */,
 				35E3DE2E16CC7DB6001AE3A4 /* Accelerate.framework in Frameworks */,
@@ -142,6 +155,7 @@
 				35E3DDCB16CC7C9A001AE3A4 /* UIKit.framework in Frameworks */,
 				35E3DDCD16CC7C9A001AE3A4 /* Foundation.framework in Frameworks */,
 				35E3DDCF16CC7C9A001AE3A4 /* CoreGraphics.framework in Frameworks */,
+				35BF262616D153930089F647 /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +191,11 @@
 		35E3DDC916CC7C9A001AE3A4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				35BF262716D153DA0089F647 /* Accounts.framework */,
+				35BF262816D153DA0089F647 /* AdSupport.framework */,
+				35BF262916D153DA0089F647 /* Social.framework */,
+				35BF262D16D154DB0089F647 /* FacebookSDKResources.bundle */,
+				35BF262516D153930089F647 /* FacebookSDK.framework */,
 				35BF261A16D0131E0089F647 /* MessageUI.framework */,
 				350D6DFD16CCBE4A003E91A2 /* CoreMotion.framework */,
 				35E3DE2816CC7DB6001AE3A4 /* Accelerate.framework */,
@@ -392,6 +411,7 @@
 				35BF261616D007860089F647 /* SVProgressHUD_LICENSE in Resources */,
 				35BF262216D14CF70089F647 /* icon.png in Resources */,
 				35BF262416D14CF70089F647 /* icon@2x.png in Resources */,
+				35BF262E16D154DB0089F647 /* FacebookSDKResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,6 +480,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = "-lsqlite3.0";
 				PROVISIONING_PROFILE = "B5C4C83B-7533-4924-9D5A-500BDF1914F3";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B5C4C83B-7533-4924-9D5A-500BDF1914F3";
 				SDKROOT = iphoneos;
@@ -470,6 +491,10 @@
 		356274F716CC8002008CDDC4 /* Ad Hoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/HarlemShake\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HarlemShake/HarlemShake-Prefix.pch";
 				INFOPLIST_FILE = "HarlemShake/HarlemShake-Info.plist";
@@ -498,6 +523,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = "-lsqlite3.0";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -506,6 +532,10 @@
 		356274F916CC800B008CDDC4 /* App Store */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/HarlemShake\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HarlemShake/HarlemShake-Prefix.pch";
 				INFOPLIST_FILE = "HarlemShake/HarlemShake-Info.plist";
@@ -542,6 +572,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DEXDEBUGENABLED";
+				OTHER_LDFLAGS = "-lsqlite3.0";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -566,6 +597,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = "-lsqlite3.0";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -574,6 +606,10 @@
 		35E3DDE516CC7C9A001AE3A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/HarlemShake\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HarlemShake/HarlemShake-Prefix.pch";
 				INFOPLIST_FILE = "HarlemShake/HarlemShake-Info.plist";
@@ -585,6 +621,10 @@
 		35E3DDE616CC7C9A001AE3A4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/HarlemShake\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HarlemShake/HarlemShake-Prefix.pch";
 				INFOPLIST_FILE = "HarlemShake/HarlemShake-Info.plist";
