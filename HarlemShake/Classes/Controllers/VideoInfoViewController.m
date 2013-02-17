@@ -43,7 +43,6 @@
 		_tableView.backgroundColor = [UIColor clearColor];
 		_tableView.delegate = self;
 		_tableView.dataSource = self;
-		_tableView.scrollEnabled = NO;
 		[self.view addSubview:_tableView];
 		
 		/* Notifications */
