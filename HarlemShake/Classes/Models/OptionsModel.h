@@ -19,6 +19,9 @@ typedef enum RecordingQuality {
 
 SINGLETON_INTR(OptionsModel);
 
+@property (nonatomic, strong) FBSession *fbsession;
+
+
 + (BOOL) playSong;
 + (void) setPlaySong:(BOOL)playSong;
 
@@ -51,5 +54,6 @@ SINGLETON_INTR(OptionsModel);
 + (BOOL) hasFrontAndBackVideo;
 + (void) turnOffAllTorches;
 + (void) turnFlashOn:(BOOL)on forDevice:(AVCaptureDevice*)device;
+
 
 @end

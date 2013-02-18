@@ -413,6 +413,59 @@
 	[SVProgressHUD showProgress:_exportSession.progress status:@"Encoding" maskType:SVProgressHUDMaskTypeGradient];
 }
 
+#pragma mark Facebook Upload
+
+- (void) beginFacebookUpload {
+	/* Check permissions */
+	NSArray *perm = OptionsModel.sharedInstance.fbsession.permissions;
+	BOOL hasPub = NO, hasVid = NO;
+	for (NSString *p in perm) {
+		if ([p isEqualToString:@"publish_stream"]) hasPub = YES;
+		if ([p isEqualToString:@"video_upload"]) hasVid = YES;
+	}
+	
+	EXLog(ANY, INFO, @"hasPub %d; hasVid %d", hasPub, hasVid);
+	if (!hasVid || !hasPub) {
+		[OptionsModel.sharedInstance.fbsession reauthorizeWithPublishPermissions:@[@"publish_stream", @"video_upload"] defaultAudience:FBSessionDefaultAudienceFriends completionHandler:^(FBSession *session, NSError *error) {
+			if (error.code == noErr) {
+				[self beginFacebookUpload];
+			}
+		}];
+	} else {
+	
+		[FBSession setActiveSession:OptionsModel.sharedInstance.fbsession];
+		
+		FBRequestConnection *connection = [[FBRequestConnection alloc] init];
+		
+		NSString *filepath = [[VideoModel sharedInstance] pathToFullVideo:_videoId];
+		NSURL *pathURL = [[NSURL alloc] initFileURLWithPath:filepath isDirectory:NO];
+		
+		FBRequest *request = [FBRequest requestWithGraphPath:@"me/videos"
+												  parameters:@{[pathURL absoluteString] : [NSData dataWithContentsOfFile:filepath], @"contentType" : @"video/mp4", @"title" : @"Test Title", @"description" : @"Test Description"}
+												  HTTPMethod:@"POST"];
+	
+		[SVProgressHUD showWithStatus:@"Uploading" maskType:SVProgressHUDMaskTypeGradient];
+		
+		[connection addRequest:request completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+			[SVProgressHUD dismiss];
+			if (!error) {
+				[[[UIAlertView alloc] initWithTitle:@"Success" message:@"The video was posted successfully!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+			} else {
+				[[[UIAlertView alloc] initWithTitle:@"Error" message:[NSString stringWithFormat:@"There was an error while uploading: %@", error] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+			}
+			
+			EXLog(ANY, INFO, @"FB RESPONSE: %@; %@", result, error);
+		}
+		batchEntryName:nil
+		];
+	    
+		[connection start];
+	
+		EXLog(ANY, INFO, @"SENDING VIDEO TO FB");
+	}
+	
+}
+
 #pragma mark ClipControlTableViewCellDelegate methods
 
 - (void) clipControlPressedWatch:(BOOL)before {
@@ -482,6 +535,39 @@
 			
 		case 2: {
 			EXLog(ANY, INFO, @"FACEBOOK");
+			
+			if (OptionsModel.sharedInstance.fbsession.isOpen) {
+				/* Logged in, proceed with upload */
+				[self beginFacebookUpload];
+			} else {
+				/* Need to login */
+				if (OptionsModel.sharedInstance.fbsession.state != FBSessionStateCreated) {
+					// Create a new, logged out session.
+					OptionsModel.sharedInstance.fbsession = [[FBSession alloc] initWithPermissions:@[@"publish_stream", @"video_upload"]];
+				}
+				
+				// if the session isn't open, let's open it now and present the login UX to the user
+				[OptionsModel.sharedInstance.fbsession openWithCompletionHandler:^(FBSession *session,
+																				   FBSessionState status,
+																				   NSError *error) {
+					if (status == FBSessionStateOpen) {
+						[self beginFacebookUpload];
+					}
+				}];
+				
+				 
+				/*
+				[FBSession openActiveSessionWithPublishPermissions:@[@"publish_stream", @"video_upload"] defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES completionHandler:^(FBSession *session,
+																																															 FBSessionState status,
+																																															 NSError *error) {
+					NSLog(@"what what %d %@", status, error);
+					if (status == FBSessionStateOpen) {
+						[self beginFacebookUpload];
+					}
+				}];
+				*/
+			}
+			
 		}
 		break;
 			
