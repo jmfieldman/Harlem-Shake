@@ -29,6 +29,7 @@
 	#import "ButtonEffects.h"
 	#import "SVProgressHUD.h"
 	#import "ImageHelpers.h"
+	#import "Flurry.h"
 
 	/* Model */
 	#import "VideoModel.h"

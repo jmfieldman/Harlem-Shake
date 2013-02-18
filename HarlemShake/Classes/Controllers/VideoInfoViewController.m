@@ -457,8 +457,10 @@
 			[SVProgressHUD dismiss];
 			if (!error) {
 				[[[UIAlertView alloc] initWithTitle:@"Success" message:@"The video was posted successfully!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+				[Flurry logEvent:@"ShareSuccess" withParameters:@{@"method":@"facebook"}];
 			} else {
 				[[[UIAlertView alloc] initWithTitle:@"Error" message:[NSString stringWithFormat:@"There was an error while uploading: %@", error] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+				[Flurry logEvent:@"ShareFailure" withParameters:@{@"method":@"facebook"}];
 			}
 			
 			EXLog(ANY, INFO, @"FB RESPONSE: %@; %@", result, error);
@@ -543,9 +545,11 @@ extern float s_fb_upload_progress;
 									_uploadFileTicket = nil;
 									if (error == nil) {
 										[[[UIAlertView alloc] initWithTitle:@"Success" message:@"The video was posted successfully!  It will show up in the uploads section of the YouTube video manager in a few minutes." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+										[Flurry logEvent:@"ShareSuccess" withParameters:@{@"method":@"youtube"}];
 									} else {
 										[[[UIAlertView alloc] initWithTitle:@"Error" message:[NSString stringWithFormat:@"There was an error while uploading: %@", error] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 										EXLog(ANY, ERR, @"YOUTUBE UPLOAD ERROR: %@", error);
+										[Flurry logEvent:@"ShareFailure" withParameters:@{@"method":@"youtube"}];
 									}
 									
 								}];
@@ -588,6 +592,7 @@ extern float s_fb_upload_progress;
 - (void) clipControlPressedRecord:(BOOL)before {
 	ClipRecorderViewController *crvc = [[ClipRecorderViewController alloc] initWithVideo:_videoId before:before];
 	[self presentViewController:crvc animated:YES completion:nil];
+	[Flurry logEvent:@"TappedRecord"];
 }
 
 #pragma mark MFMailComposeViewControllerDelegate methods
@@ -605,6 +610,8 @@ extern float s_fb_upload_progress;
 	switch (offset) {
 		case 0: {
 			EXLog(ANY, INFO, @"EMAIL");
+			
+			[Flurry logEvent:@"PressedShare" withParameters:@{@"method":@"email"}];
 			
 			MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
 			picker.mailComposeDelegate = self;
@@ -624,6 +631,8 @@ extern float s_fb_upload_progress;
 		case 1: {
 			EXLog(ANY, INFO, @"PHOTOS");
 			
+			[Flurry logEvent:@"PressedShare" withParameters:@{@"method":@"photos"}];
+			
 			NSURL *url = [NSURL fileURLWithPath:[[VideoModel sharedInstance] pathToFullVideo:_videoId]];
 			UISaveVideoAtPathToSavedPhotosAlbum([url relativePath], self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
 		}
@@ -631,6 +640,8 @@ extern float s_fb_upload_progress;
 			
 		case 2: {
 			EXLog(ANY, INFO, @"FACEBOOK");
+			
+			[Flurry logEvent:@"PressedShare" withParameters:@{@"method":@"facebook"}];
 			
 			if (OptionsModel.sharedInstance.fbsession.isOpen) {
 				/* Logged in, proceed with upload */
@@ -669,6 +680,8 @@ extern float s_fb_upload_progress;
 			
 		case 3: {
 			EXLog(ANY, INFO, @"YOUTUBE");
+			
+			[Flurry logEvent:@"PressedShare" withParameters:@{@"method":@"youtube"}];
 			
 			/* Create service */
 			if (!_youtubeService) {
@@ -743,6 +756,7 @@ extern float s_fb_upload_progress;
 		case kCellTag_RecordingOptions: {
 			RecordingOptionsViewController *rovc = [[RecordingOptionsViewController alloc] init];
 			[self.navigationController pushViewController:rovc animated:YES];
+			[Flurry logEvent:@"TappedRecordingOptions"];
 		}
 		break;
 			

@@ -96,6 +96,8 @@ SINGLETON_IMPL(VideoListViewController);
 	vc.videoId = newId;
 	
 	[self.navigationController pushViewController:vc animated:YES];
+	
+	[Flurry logEvent:@"CreatedVideo"];
 }
 
 - (void) pressedEditVideos:(id)sender {

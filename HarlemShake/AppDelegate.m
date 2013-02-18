@@ -10,9 +10,20 @@
 #import "VideoListViewController.h"
 #import "TestCameraViewController.h"
 
+void uncaughtExceptionHandler(NSException *exception) {
+	[Flurry logError:@"Uncaught" message:@"Crash!" exception:exception];
+}
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+	
+	/* Debug */
+	Timing_MarkStartTime();
+	
+	/* Flurry */
+	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+	[Flurry startSession:FLURRY_KEY];
 	
 	/* Initialize FB session - From FB SDK sample */
 	if (!OptionsModel.sharedInstance.fbsession.isOpen) {

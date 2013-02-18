@@ -148,6 +148,10 @@
 		35BF300C16D1C68E0089F647 /* GTLFramework.m in Sources */ = {isa = PBXBuildFile; fileRef = 35BF2E8816D1C68E0089F647 /* GTLFramework.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		35BF300D16D1C68E0089F647 /* GTLJSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 35BF2E8A16D1C68E0089F647 /* GTLJSONParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		35BF300E16D1C68E0089F647 /* GTLUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 35BF2E8D16D1C68E0089F647 /* GTLUtilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		35BF301616D29E520089F647 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35BF301116D29E520089F647 /* libFlurry.a */; };
+		35BF301716D29E520089F647 /* Avro-LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 35BF301316D29E520089F647 /* Avro-LICENSE.txt */; };
+		35BF301816D29E520089F647 /* Flurry-LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 35BF301416D29E520089F647 /* Flurry-LICENSE.txt */; };
+		35BF301916D29E520089F647 /* Jansson-LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 35BF301516D29E520089F647 /* Jansson-LICENSE.txt */; };
 		35E3DDCB16CC7C9A001AE3A4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E3DDCA16CC7C9A001AE3A4 /* UIKit.framework */; };
 		35E3DDCD16CC7C9A001AE3A4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E3DDCC16CC7C9A001AE3A4 /* Foundation.framework */; };
 		35E3DDCF16CC7C9A001AE3A4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35E3DDCE16CC7C9A001AE3A4 /* CoreGraphics.framework */; };
@@ -453,6 +457,12 @@
 		35BF2E8B16D1C68E0089F647 /* GTLTargetNamespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLTargetNamespace.h; sourceTree = "<group>"; };
 		35BF2E8C16D1C68E0089F647 /* GTLUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLUtilities.h; sourceTree = "<group>"; };
 		35BF2E8D16D1C68E0089F647 /* GTLUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLUtilities.m; sourceTree = "<group>"; };
+		35BF301016D29E520089F647 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		35BF301116D29E520089F647 /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
+		35BF301316D29E520089F647 /* Avro-LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Avro-LICENSE.txt"; sourceTree = "<group>"; };
+		35BF301416D29E520089F647 /* Flurry-LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Flurry-LICENSE.txt"; sourceTree = "<group>"; };
+		35BF301516D29E520089F647 /* Jansson-LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Jansson-LICENSE.txt"; sourceTree = "<group>"; };
+		35BF301A16D29E9F0089F647 /* FlurryKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlurryKey.h; sourceTree = "<group>"; };
 		35E3DDC716CC7C9A001AE3A4 /* HarlemShake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HarlemShake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35E3DDCA16CC7C9A001AE3A4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		35E3DDCC16CC7C9A001AE3A4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -530,6 +540,7 @@
 				35E3DDCB16CC7C9A001AE3A4 /* UIKit.framework in Frameworks */,
 				35E3DDCD16CC7C9A001AE3A4 /* Foundation.framework in Frameworks */,
 				35E3DDCF16CC7C9A001AE3A4 /* CoreGraphics.framework in Frameworks */,
+				35BF301616D29E520089F647 /* libFlurry.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -894,6 +905,27 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		35BF300F16D29E510089F647 /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				35BF301A16D29E9F0089F647 /* FlurryKey.h */,
+				35BF301016D29E520089F647 /* Flurry.h */,
+				35BF301116D29E520089F647 /* libFlurry.a */,
+				35BF301216D29E520089F647 /* Licenses */,
+			);
+			path = Flurry;
+			sourceTree = "<group>";
+		};
+		35BF301216D29E520089F647 /* Licenses */ = {
+			isa = PBXGroup;
+			children = (
+				35BF301316D29E520089F647 /* Avro-LICENSE.txt */,
+				35BF301416D29E520089F647 /* Flurry-LICENSE.txt */,
+				35BF301516D29E520089F647 /* Jansson-LICENSE.txt */,
+			);
+			path = Licenses;
+			sourceTree = "<group>";
+		};
 		35E3DDBE16CC7C9A001AE3A4 = {
 			isa = PBXGroup;
 			children = (
@@ -936,6 +968,7 @@
 		35E3DDD016CC7C9A001AE3A4 /* HarlemShake */ = {
 			isa = PBXGroup;
 			children = (
+				35BF300F16D29E510089F647 /* Flurry */,
 				35BF2B6616D1C68C0089F647 /* GoogleSDK */,
 				35BF262F16D1BBA10089F647 /* FacebookSDK */,
 				35E3DDED16CC7D87001AE3A4 /* Classes */,
@@ -1140,6 +1173,9 @@
 				35BF2E9616D1C68E0089F647 /* ReleaseNotes.txt in Resources */,
 				35BF2EA616D1C68E0089F647 /* ReleaseNotes.txt in Resources */,
 				35BF2EA816D1C68E0089F647 /* GTMOAuth2ViewTouch.xib in Resources */,
+				35BF301716D29E520089F647 /* Avro-LICENSE.txt in Resources */,
+				35BF301816D29E520089F647 /* Flurry-LICENSE.txt in Resources */,
+				35BF301916D29E520089F647 /* Jansson-LICENSE.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1345,6 +1381,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/HarlemShake/GoogleSDK/Device\"",
+					"\"$(SRCROOT)/HarlemShake/Flurry\"",
 				);
 				OTHER_LDFLAGS = (
 					"-lsqlite3.0",
@@ -1368,7 +1405,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Jason Fieldman";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jason Fieldman";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1377,6 +1415,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-lsqlite3.0";
+				PROVISIONING_PROFILE = "81086936-A3C7-4424-8B5D-F76248865583";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "81086936-A3C7-4424-8B5D-F76248865583";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1395,6 +1435,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/HarlemShake/GoogleSDK/Device\"",
+					"\"$(SRCROOT)/HarlemShake/Flurry\"",
 				);
 				OTHER_LDFLAGS = (
 					"-lsqlite3.0",
@@ -1478,6 +1519,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/HarlemShake/GoogleSDK/Device\"",
+					"\"$(SRCROOT)/HarlemShake/Flurry\"",
 				);
 				OTHER_LDFLAGS = (
 					"-lsqlite3.0",
@@ -1502,6 +1544,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/HarlemShake/GoogleSDK/Device\"",
+					"\"$(SRCROOT)/HarlemShake/Flurry\"",
 				);
 				OTHER_LDFLAGS = (
 					"-lsqlite3.0",
