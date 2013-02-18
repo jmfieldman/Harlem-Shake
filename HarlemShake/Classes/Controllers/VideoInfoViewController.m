@@ -471,6 +471,7 @@
 	
 }
 
+/* Look in FBURLConnection to see my hack to get upload progress w/ connection:didSendBodyData */
 extern float s_fb_upload_progress;
 
 - (void) handleFBUploadProgressTimer:(NSTimer*)timer {
