@@ -17,7 +17,7 @@
 	#import <CoreMotion/CoreMotion.h>
 	#import <MediaPlayer/MediaPlayer.h>
 	#import <MessageUI/MessageUI.h>
-	#import <FacebookSDK/FacebookSDK.h>
+	#import "FacebookSDK.h"
 
 	/* Debug */
 	#import "EXDebug.h"

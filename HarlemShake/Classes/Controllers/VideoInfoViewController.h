@@ -24,6 +24,9 @@
 	/* Movie player */
 	MPMoviePlayerController *_moviePlayer;
 	UILabel *_audioWarning;
+	
+	/* Upload */
+	NSTimer *_uploadProgressTimer;
 }
 
 @property (nonatomic, strong) VideoID_t videoId;

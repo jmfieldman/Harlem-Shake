@@ -444,9 +444,14 @@
 												  parameters:@{[pathURL absoluteString] : [NSData dataWithContentsOfFile:filepath], @"contentType" : @"video/mp4", @"title" : @"Test Title", @"description" : @"Test Description"}
 												  HTTPMethod:@"POST"];
 	
-		[SVProgressHUD showWithStatus:@"Uploading" maskType:SVProgressHUDMaskTypeGradient];
+		[SVProgressHUD showProgress:0 status:@"Uploading to Facebook" maskType:SVProgressHUDMaskTypeGradient];
+		
+		_uploadProgressTimer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(handleFBUploadProgressTimer:) userInfo:nil repeats:YES];
 		
 		[connection addRequest:request completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+			[_uploadProgressTimer invalidate];
+			_uploadProgressTimer = nil;
+			
 			[SVProgressHUD dismiss];
 			if (!error) {
 				[[[UIAlertView alloc] initWithTitle:@"Success" message:@"The video was posted successfully!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
@@ -464,6 +469,12 @@
 		EXLog(ANY, INFO, @"SENDING VIDEO TO FB");
 	}
 	
+}
+
+extern float s_fb_upload_progress;
+
+- (void) handleFBUploadProgressTimer:(NSTimer*)timer {
+	[SVProgressHUD showProgress:s_fb_upload_progress status:@"Uploading to Facebook" maskType:SVProgressHUDMaskTypeGradient];
 }
 
 #pragma mark ClipControlTableViewCellDelegate methods
