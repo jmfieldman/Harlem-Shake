@@ -505,6 +505,9 @@ extern float s_fb_upload_progress;
 	GTLYouTubeVideoSnippet *snippet = [GTLYouTubeVideoSnippet object];
 	snippet.title = [[[[VideoModel sharedInstance] videoDic:_videoId] objectForKey:@"title"] length] ? [[[VideoModel sharedInstance] videoDic:_videoId] objectForKey:@"title"] : @"Harlem Shake";
 	NSString *desc = [[[VideoModel sharedInstance] videoDic:_videoId] objectForKey:@"description"];
+	
+	desc = [NSString stringWithFormat:@"%@\n\nCreated with the Harlem Shake iPhone App: %@", desc, [[[NSBundle mainBundle] infoDictionary] objectForKey:@"iTunesURL"]];
+	
 	if ([desc length] > 0) {
 		snippet.descriptionProperty = [[[VideoModel sharedInstance] videoDic:_videoId] objectForKey:@"description"];
 	}
@@ -612,7 +615,7 @@ extern float s_fb_upload_progress;
 			[picker addAttachmentData:movieData mimeType:@"video/mp4" fileName:@"harlemshake.mp4"];
 			
 			/* Body */
-			NSString *emailBody = @"\n\n[This video was created with the Harlem Shake iPhone app]";
+			NSString *emailBody = [NSString stringWithFormat:@"\n\n[This video was created with the Harlem Shake iPhone app: %@]", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"iTunesURL"]];
 			[picker setMessageBody:emailBody isHTML:NO];
 			[self presentViewController:picker animated:YES completion:nil];
 		}
