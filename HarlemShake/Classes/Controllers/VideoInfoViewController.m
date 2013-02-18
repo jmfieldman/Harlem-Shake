@@ -11,6 +11,8 @@
 #import "RecordingOptionsViewController.h"
 #import "ClipRecorderViewController.h"
 
+#import "GTMOAuth2ViewControllerTouch.h"
+
 #import "UITableViewCellEx.h"
 #import "ClipControlTableViewCell.h"
 
@@ -478,6 +480,85 @@ extern float s_fb_upload_progress;
 	[SVProgressHUD showProgress:s_fb_upload_progress status:@"Uploading to Facebook" maskType:SVProgressHUDMaskTypeGradient];
 }
 
+
+#pragma mark Youtube Stuff
+
+- (void)viewController:(GTMOAuth2ViewControllerTouch *)viewController
+      finishedWithAuth:(GTMOAuth2Authentication *)auth
+                 error:(NSError *)error {
+	if (error != nil) {
+		// Authentication failed
+	} else {
+		NSLog(@"GOT AUTH");
+		[self beginYoutubeUpload:auth];
+	}
+}
+
+- (void) beginYoutubeUpload:(GTMOAuth2Authentication*)auth {
+	_youtubeService.authorizer = auth;
+	
+	// Status.
+	GTLYouTubeVideoStatus *status = [GTLYouTubeVideoStatus object];
+	status.privacyStatus = @"private";
+	
+	// Snippet.
+	GTLYouTubeVideoSnippet *snippet = [GTLYouTubeVideoSnippet object];
+	snippet.title = [[[[VideoModel sharedInstance] videoDic:_videoId] objectForKey:@"title"] length] ? [[[VideoModel sharedInstance] videoDic:_videoId] objectForKey:@"title"] : @"Harlem Shake";
+	NSString *desc = [[[VideoModel sharedInstance] videoDic:_videoId] objectForKey:@"description"];
+	if ([desc length] > 0) {
+		snippet.descriptionProperty = [[[VideoModel sharedInstance] videoDic:_videoId] objectForKey:@"description"];
+	}
+	
+	GTLYouTubeVideo *video = [GTLYouTubeVideo object];
+	video.status = status;
+	video.snippet = snippet;
+	
+	/* Perform upload */
+	NSString *path = [[VideoModel sharedInstance] pathToFullVideo:_videoId];
+	//NSString *filename = [path lastPathComponent];
+	NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingAtPath:path];
+	if (fileHandle) {
+		NSString *mimeType = @"video/mp4";
+		GTLUploadParameters *uploadParameters =
+        [GTLUploadParameters uploadParametersWithFileHandle:fileHandle
+                                                   MIMEType:mimeType];
+		uploadParameters.uploadLocationURL = nil;
+		
+		GTLQueryYouTube *query = [GTLQueryYouTube queryForVideosInsertWithObject:video
+																			part:@"snippet,status"
+																uploadParameters:uploadParameters];
+		
+		GTLServiceYouTube *service = _youtubeService;
+		_uploadFileTicket = [service executeQuery:query
+								completionHandler:^(GTLServiceTicket *ticket,
+													GTLYouTubeVideo *uploadedVideo,
+													NSError *error) {
+									
+									[SVProgressHUD dismiss];
+									
+									// Callback
+									_uploadFileTicket = nil;
+									if (error == nil) {
+										[[[UIAlertView alloc] initWithTitle:@"Success" message:@"The video was posted successfully!  It will show up in the uploads section of the YouTube video manager in a few minutes." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+									} else {
+										[[[UIAlertView alloc] initWithTitle:@"Error" message:[NSString stringWithFormat:@"There was an error while uploading: %@", error] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+										EXLog(ANY, ERR, @"YOUTUBE UPLOAD ERROR: %@", error);
+									}
+									
+								}];
+				
+		_uploadFileTicket.uploadProgressBlock = ^(GTLServiceTicket *ticket,
+												  unsigned long long numberOfBytesRead,
+												  unsigned long long dataLength) {
+			
+			float prog = (double)numberOfBytesRead / (double)dataLength;
+			[SVProgressHUD showProgress:prog status:@"Uploading to Youtube" maskType:SVProgressHUDMaskTypeGradient];
+			
+		};
+	}
+}
+
+
 #pragma mark ClipControlTableViewCellDelegate methods
 
 - (void) clipControlPressedWatch:(BOOL)before {
@@ -585,6 +666,35 @@ extern float s_fb_upload_progress;
 			
 		case 3: {
 			EXLog(ANY, INFO, @"YOUTUBE");
+			
+			/* Create service */
+			if (!_youtubeService) {
+				_youtubeService = [[GTLServiceYouTube alloc] init];
+				_youtubeService.retryEnabled = YES;
+			}
+			
+			/* Check if we have an auth token */
+			GTMOAuth2Authentication *auth;
+			auth = [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:@"HS_APP_KEYCHAIN"
+																		 clientID:@"358796881535.apps.googleusercontent.com"
+																	 clientSecret:@"gL8BDoHSXD2QT6WcXAT_pEWz"];
+			if ([auth canAuthorize]) {
+				EXLog(ANY, INFO, @"youtube auth exists with canAuthorize");
+				[self beginYoutubeUpload:auth];
+				return;
+			}
+			
+			
+			GTMOAuth2ViewControllerTouch *viewController;
+			viewController = [[GTMOAuth2ViewControllerTouch alloc] initWithScope:kGTLAuthScopeYouTube
+																		 clientID:@"358796881535.apps.googleusercontent.com"
+																	 clientSecret:@"gL8BDoHSXD2QT6WcXAT_pEWz"
+																 keychainItemName:@"HS_APP_KEYCHAIN"
+																		 delegate:self
+																 finishedSelector:@selector(viewController:finishedWithAuth:error:)];
+			
+			[[self navigationController] pushViewController:viewController
+												   animated:YES];
 		}
 		break;
 	}

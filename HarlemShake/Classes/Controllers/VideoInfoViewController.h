@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ClipControlTableViewCell.h"
+#import "GTLYouTube.h"
 
 @interface VideoInfoViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, ClipControlTableViewCellDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
 	/* Array that contains the table cells */
@@ -27,6 +28,10 @@
 	
 	/* Upload */
 	NSTimer *_uploadProgressTimer;
+	
+	/* Youtube */
+	GTLServiceYouTube *_youtubeService;
+	GTLServiceTicket  *_uploadFileTicket;
 }
 
 @property (nonatomic, strong) VideoID_t videoId;
